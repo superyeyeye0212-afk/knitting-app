@@ -16,6 +16,17 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "あみものコンパニオン",
   description: "編み物初心者のためのお助けアプリ",
+  manifest: "/manifest.json",
+  themeColor: "#3B82F6",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "あみコン",
+  },
+  icons: {
+    icon: "/icons/icon-192x192.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
 };
 
 export default function RootLayout({
@@ -25,6 +36,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
