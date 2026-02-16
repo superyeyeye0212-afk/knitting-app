@@ -4,13 +4,19 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { useProjectStore } from "@/store/projectStore";
+import { useAchievementStore } from "@/store/achievementStore";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 import AddProjectDialog from "@/components/AddProjectDialog";
+import AchievementUnlockedModal from "@/components/AchievementUnlockedModal";
+import { type Achievement } from "@/store/achievementStore";
 
 export default function ProjectListPage() {
   const { projects, addProject } = useProjectStore();
+  const { incrementProjectCount } = useAchievementStore();
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [achievementQueue, setAchievementQueue] = useState<Achievement[]>([]);
+  const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -20,7 +26,7 @@ export default function ProjectListPage() {
   if (!mounted) {
     return (
       <div className="px-4 pt-12">
-        <h1 className="text-2xl font-bold text-gray-800">編み物プロジェクト</h1>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">編み物プロジェクト</h1>
       </div>
     );
   }
@@ -31,11 +37,11 @@ export default function ProjectListPage() {
 
   return (
     <div className="px-4 pt-12 pb-24 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6">編み物プロジェクト</h1>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6">編み物プロジェクト</h1>
 
       {sorted.length === 0 ? (
         <div className="flex flex-col items-center justify-center mt-32 text-center">
-          <p className="text-gray-400 text-lg leading-relaxed">
+          <p className="text-gray-400 dark:text-gray-500 text-lg leading-relaxed">
             まだプロジェクトがありません
             <br />
             下のボタンから始めましょう
@@ -47,18 +53,18 @@ export default function ProjectListPage() {
             <Link
               key={project.id}
               href={`/counter/${project.id}`}
-              className="block bg-white border border-gray-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow active:scale-[0.98] transition-transform"
+              className="block bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow active:scale-[0.98] transition-transform"
             >
-              <h2 className="text-lg font-bold text-gray-800">{project.name}</h2>
-              <p className="text-[#3B82F6] font-medium mt-1">
+              <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">{project.name}</h2>
+              <p className="text-[#3B82F6] dark:text-blue-400 font-medium mt-1">
                 {project.currentRow}段目
                 {project.targetRow && (
-                  <span className="text-gray-400 font-normal text-sm ml-2">
+                  <span className="text-gray-400 dark:text-gray-500 font-normal text-sm ml-2">
                     / {project.targetRow}段
                   </span>
                 )}
               </p>
-              <p className="text-gray-300 text-xs mt-2">
+              <p className="text-gray-300 dark:text-gray-600 text-xs mt-2">
                 {formatDistanceToNow(new Date(project.updatedAt), {
                   addSuffix: true,
                   locale: ja,
@@ -80,8 +86,30 @@ export default function ProjectListPage() {
       <AddProjectDialog
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
-        onAdd={addProject}
+        onAdd={(data) => {
+          addProject(data);
+          const newlyUnlocked = incrementProjectCount();
+          if (newlyUnlocked.length > 0) {
+            setAchievementQueue(newlyUnlocked);
+            setShowAchievementModal(true);
+          }
+        }}
       />
+
+      {showAchievementModal && achievementQueue.length > 0 && (
+        <AchievementUnlockedModal
+          achievement={achievementQueue[0]}
+          onClose={() => {
+            const rest = achievementQueue.slice(1);
+            if (rest.length > 0) {
+              setAchievementQueue(rest);
+            } else {
+              setAchievementQueue([]);
+              setShowAchievementModal(false);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }

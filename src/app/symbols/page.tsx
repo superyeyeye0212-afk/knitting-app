@@ -53,20 +53,20 @@ export default function SymbolsPage() {
 
   return (
     <div className="px-4 pt-10 pb-24 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold text-gray-800 mb-4">編み図記号辞典</h1>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">編み図記号辞典</h1>
 
       {/* Search */}
       <div className="relative mb-4">
         <Search
           size={18}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-500"
         />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="記号を検索（日本語・英語）"
-          className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-colors bg-white"
+          className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl text-sm text-gray-800 dark:text-gray-100 bg-white dark:bg-slate-800 placeholder-gray-300 dark:placeholder-gray-500 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-colors"
         />
       </div>
 
@@ -79,7 +79,7 @@ export default function SymbolsPage() {
             className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors shrink-0 ${
               activeTab === tab.key
                 ? "bg-[#3B82F6] text-white"
-                : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
             {tab.label}
@@ -90,7 +90,7 @@ export default function SymbolsPage() {
       {/* Grid */}
       {filtered.length === 0 ? (
         <div className="text-center mt-16">
-          <p className="text-gray-400">
+          <p className="text-gray-400 dark:text-gray-500">
             {activeTab === "favorites"
               ? "お気に入りがありません"
               : "該当する記号がありません"}
@@ -104,15 +104,15 @@ export default function SymbolsPage() {
               <div key={symbol.id} className="relative">
                 <Link
                   href={`/symbols/${symbol.id}`}
-                  className="block bg-white border border-gray-100 rounded-2xl p-4 shadow-sm hover:shadow-md active:scale-[0.97] transition-all text-center"
+                  className="block bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md active:scale-[0.97] transition-all text-center"
                 >
-                  <div className="flex justify-center mb-2 text-gray-700">
+                  <div className="flex justify-center mb-2 text-gray-700 dark:text-gray-300">
                     <SymbolIcon svg={symbol.svg} size={60} />
                   </div>
-                  <p className="text-sm font-bold text-gray-800 leading-tight">
+                  <p className="text-sm font-bold text-gray-800 dark:text-gray-100 leading-tight">
                     {symbol.nameJa}
                   </p>
-                  <p className="text-xs text-gray-400 mt-0.5">
+                  <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
                     {symbol.nameEn}
                   </p>
                 </Link>
@@ -128,7 +128,7 @@ export default function SymbolsPage() {
                     className={
                       isFav
                         ? "fill-yellow-400 text-yellow-400"
-                        : "text-gray-200 hover:text-gray-400"
+                        : "text-gray-200 dark:text-gray-600 hover:text-gray-400 dark:hover:text-gray-400"
                     }
                   />
                 </button>

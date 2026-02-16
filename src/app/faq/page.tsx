@@ -12,7 +12,7 @@ function highlightText(text: string, query: string) {
   const parts = text.split(new RegExp(`(${escaped})`, "gi"));
   return parts.map((part, i) =>
     part.toLowerCase() === query.toLowerCase() ? (
-      <mark key={i} className="bg-yellow-200 text-gray-800 rounded-sm px-0.5">
+      <mark key={i} className="bg-yellow-200 dark:bg-yellow-700 text-gray-800 dark:text-yellow-100 rounded-sm px-0.5">
         {part}
       </mark>
     ) : (
@@ -30,7 +30,7 @@ function formatAnswer(answer: string, query: string) {
     // 【】headings
     if (/^【.+】/.test(trimmed)) {
       return (
-        <p key={i} className="font-bold text-gray-800 mt-3 first:mt-0">
+        <p key={i} className="font-bold text-gray-800 dark:text-gray-100 mt-3 first:mt-0">
           {highlightText(trimmed, query)}
         </p>
       );
@@ -39,7 +39,7 @@ function formatAnswer(answer: string, query: string) {
     // ■ subheadings
     if (trimmed.startsWith("■")) {
       return (
-        <p key={i} className="font-bold text-gray-700 mt-2">
+        <p key={i} className="font-bold text-gray-700 dark:text-gray-200 mt-2">
           {highlightText(trimmed, query)}
         </p>
       );
@@ -48,7 +48,7 @@ function formatAnswer(answer: string, query: string) {
     // Bullet points
     if (trimmed.startsWith("•") || trimmed.startsWith("-")) {
       return (
-        <p key={i} className="ml-4 text-gray-600">
+        <p key={i} className="ml-4 text-gray-600 dark:text-gray-400">
           {highlightText(trimmed, query)}
         </p>
       );
@@ -57,7 +57,7 @@ function formatAnswer(answer: string, query: string) {
     // Numbered items
     if (/^\d+\./.test(trimmed)) {
       return (
-        <p key={i} className="ml-4 text-gray-600">
+        <p key={i} className="ml-4 text-gray-600 dark:text-gray-400">
           {highlightText(trimmed, query)}
         </p>
       );
@@ -66,7 +66,7 @@ function formatAnswer(answer: string, query: string) {
     // → lines
     if (trimmed.startsWith("→")) {
       return (
-        <p key={i} className="ml-4 text-gray-500 italic">
+        <p key={i} className="ml-4 text-gray-500 dark:text-gray-400 italic">
           {highlightText(trimmed, query)}
         </p>
       );
@@ -75,14 +75,14 @@ function formatAnswer(answer: string, query: string) {
     // 「」quoted text
     if (trimmed.startsWith("「")) {
       return (
-        <p key={i} className="ml-2 text-gray-600">
+        <p key={i} className="ml-2 text-gray-600 dark:text-gray-400">
           {highlightText(trimmed, query)}
         </p>
       );
     }
 
     return (
-      <p key={i} className="text-gray-600">
+      <p key={i} className="text-gray-600 dark:text-gray-400">
         {highlightText(trimmed, query)}
       </p>
     );
@@ -119,21 +119,21 @@ export default function FaqPage() {
 
   return (
     <div className="px-4 pt-10 pb-24 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold text-gray-800">よくある質問</h1>
-      <p className="text-gray-400 mt-1 mb-4">困った時はここをチェック</p>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">よくある質問</h1>
+      <p className="text-gray-400 dark:text-gray-500 mt-1 mb-4">困った時はここをチェック</p>
 
       {/* Search */}
       <div className="relative mb-4">
         <Search
           size={18}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 dark:text-gray-500"
         />
         <input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="質問を検索"
-          className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm text-gray-800 placeholder-gray-300 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-colors bg-white"
+          className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl text-sm text-gray-800 dark:text-gray-100 bg-white dark:bg-slate-800 placeholder-gray-300 dark:placeholder-gray-500 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-colors"
         />
       </div>
 
@@ -144,7 +144,7 @@ export default function FaqPage() {
           className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors shrink-0 ${
             activeTab === "all"
               ? "bg-[#3B82F6] text-white"
-              : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+              : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
           }`}
         >
           すべて
@@ -156,7 +156,7 @@ export default function FaqPage() {
             className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors shrink-0 ${
               activeTab === cat
                 ? "bg-[#3B82F6] text-white"
-                : "bg-gray-100 text-gray-500 hover:bg-gray-200"
+                : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
             {cat}
@@ -167,8 +167,8 @@ export default function FaqPage() {
       {/* FAQ List */}
       {filtered.length === 0 ? (
         <div className="text-center mt-16">
-          <p className="text-gray-400">見つかりませんでした</p>
-          <p className="text-gray-300 text-sm mt-1">
+          <p className="text-gray-400 dark:text-gray-500">見つかりませんでした</p>
+          <p className="text-gray-300 dark:text-gray-600 text-sm mt-1">
             別のキーワードで検索してみてください
           </p>
         </div>
@@ -181,20 +181,20 @@ export default function FaqPage() {
                 key={faq.id}
                 className={`rounded-2xl border transition-all duration-300 ease-in-out ${
                   isOpen
-                    ? "bg-blue-50 border-blue-100 shadow-sm"
-                    : "bg-white border-gray-100"
+                    ? "bg-blue-50 dark:bg-blue-950/30 border-blue-100 dark:border-blue-900 shadow-sm"
+                    : "bg-white dark:bg-slate-800 border-gray-100 dark:border-gray-700"
                 }`}
               >
                 <button
                   onClick={() => toggleOpen(faq.id)}
                   className="w-full flex items-center justify-between p-4 text-left"
                 >
-                  <span className="font-bold text-gray-800 text-sm pr-2 leading-snug">
+                  <span className="font-bold text-gray-800 dark:text-gray-100 text-sm pr-2 leading-snug">
                     {highlightText(faq.question, query)}
                   </span>
                   <ChevronDown
                     size={20}
-                    className={`shrink-0 text-gray-400 transition-transform duration-300 ${
+                    className={`shrink-0 text-gray-400 dark:text-gray-500 transition-transform duration-300 ${
                       isOpen ? "rotate-180" : ""
                     }`}
                   />

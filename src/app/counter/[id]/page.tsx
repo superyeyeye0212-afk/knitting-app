@@ -10,7 +10,10 @@ import {
   Pencil,
 } from "lucide-react";
 import { useProjectStore } from "@/store/projectStore";
+import { useAchievementStore, type Achievement } from "@/store/achievementStore";
 import ConfirmDialog from "@/components/ConfirmDialog";
+import AchievementUnlockedModal from "@/components/AchievementUnlockedModal";
+import { vibrateShort, vibrateMedium } from "@/utils/vibration";
 
 export default function CounterPage({
   params,
@@ -27,8 +30,11 @@ export default function CounterPage({
     deleteProject,
     updateProject,
   } = useProjectStore();
+  const { incrementTotalRows } = useAchievementStore();
 
   const [mounted, setMounted] = useState(false);
+  const [achievementQueue, setAchievementQueue] = useState<Achievement[]>([]);
+  const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [resetDialogOpen, setResetDialogOpen] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
@@ -47,16 +53,25 @@ export default function CounterPage({
   const project = projects.find((p) => p.id === id);
 
   const handleIncrement = useCallback(() => {
+    vibrateShort();
     incrementRow(id);
     setAnimating(true);
     setTimeout(() => setAnimating(false), 150);
-  }, [id, incrementRow]);
+
+    const newlyUnlocked = incrementTotalRows(1);
+    if (newlyUnlocked.length > 0) {
+      setAchievementQueue(newlyUnlocked);
+      setShowAchievementModal(true);
+    }
+  }, [id, incrementRow, incrementTotalRows]);
 
   const handleDecrement = useCallback(() => {
+    vibrateShort();
     decrementRow(id);
   }, [id, decrementRow]);
 
   const handleReset = useCallback(() => {
+    vibrateMedium();
     resetRow(id);
     setResetDialogOpen(false);
   }, [id, resetRow]);
@@ -94,10 +109,10 @@ export default function CounterPage({
   if (!project) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[80vh] px-4">
-        <p className="text-gray-400 text-lg">プロジェクトが見つかりません</p>
+        <p className="text-gray-400 dark:text-gray-500 text-lg">プロジェクトが見つかりません</p>
         <button
           onClick={() => router.push("/")}
-          className="mt-4 text-[#3B82F6] font-medium"
+          className="mt-4 text-[#3B82F6] dark:text-blue-400 font-medium"
         >
           一覧に戻る
         </button>
@@ -119,30 +134,30 @@ export default function CounterPage({
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <button
           onClick={() => router.push("/")}
-          className="p-2 -ml-2 text-gray-500 hover:text-gray-700 transition-colors"
+          className="p-2 -ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
         >
           <ArrowLeft size={24} />
         </button>
-        <h1 className="text-lg font-bold text-gray-800 truncate mx-4">
+        <h1 className="text-lg font-bold text-gray-800 dark:text-gray-100 truncate mx-4">
           {project.name}
         </h1>
         <div className="relative">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="p-2 -mr-2 text-gray-500 hover:text-gray-700 transition-colors"
+            className="p-2 -mr-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
           >
             <MoreVertical size={24} />
           </button>
           {menuOpen && (
             <>
               <div className="fixed inset-0 z-40" onClick={() => setMenuOpen(false)} />
-              <div className="absolute right-0 top-full mt-1 bg-white border border-gray-100 rounded-xl shadow-lg z-50 w-44 overflow-hidden">
+              <div className="absolute right-0 top-full mt-1 bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-lg z-50 w-44 overflow-hidden">
                 <button
                   onClick={() => {
                     setNameValue(project.name);
                     setEditingName(true);
                   }}
-                  className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                  className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
                 >
                   <Pencil size={16} />
                   名前を編集
@@ -152,7 +167,7 @@ export default function CounterPage({
                     setTargetValue(project.targetRow?.toString() ?? "");
                     setEditingTarget(true);
                   }}
-                  className="w-full text-left px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+                  className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
                 >
                   <Pencil size={16} />
                   目標段数を編集
@@ -162,7 +177,7 @@ export default function CounterPage({
                     setMenuOpen(false);
                     setDeleteDialogOpen(true);
                   }}
-                  className="w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 border-t border-gray-50"
+                  className="w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 border-t border-gray-50 dark:border-gray-700"
                 >
                   削除
                 </button>
@@ -176,19 +191,19 @@ export default function CounterPage({
       {editingName && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/40" onClick={() => setEditingName(false)} />
-          <div className="relative bg-white rounded-2xl w-[85%] max-w-xs p-6 shadow-xl">
-            <h3 className="text-lg font-bold text-gray-800 mb-4">名前を編集</h3>
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl w-[85%] max-w-xs p-6 shadow-xl">
+            <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">名前を編集</h3>
             <input
               type="text"
               value={nameValue}
               onChange={(e) => setNameValue(e.target.value)}
               autoFocus
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-800 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-800 dark:text-gray-100 bg-white dark:bg-slate-700 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]"
             />
             <div className="flex gap-3 mt-4">
               <button
                 onClick={() => setEditingName(false)}
-                className="flex-1 py-3 rounded-xl border border-gray-200 text-gray-500 font-medium"
+                className="flex-1 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 font-medium"
               >
                 キャンセル
               </button>
@@ -208,8 +223,8 @@ export default function CounterPage({
       {editingTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/40" onClick={() => setEditingTarget(false)} />
-          <div className="relative bg-white rounded-2xl w-[85%] max-w-xs p-6 shadow-xl">
-            <h3 className="text-lg font-bold text-gray-800 mb-4">目標段数を編集</h3>
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl w-[85%] max-w-xs p-6 shadow-xl">
+            <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">目標段数を編集</h3>
             <input
               type="number"
               value={targetValue}
@@ -218,12 +233,12 @@ export default function CounterPage({
               min="1"
               inputMode="numeric"
               autoFocus
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-300 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-800 dark:text-gray-100 bg-white dark:bg-slate-700 placeholder-gray-300 dark:placeholder-gray-500 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6]"
             />
             <div className="flex gap-3 mt-4">
               <button
                 onClick={() => setEditingTarget(false)}
-                className="flex-1 py-3 rounded-xl border border-gray-200 text-gray-500 font-medium"
+                className="flex-1 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 font-medium"
               >
                 キャンセル
               </button>
@@ -242,21 +257,21 @@ export default function CounterPage({
       <div className="flex-1 flex flex-col items-center justify-center px-4 -mt-4">
         <div className="text-center mb-2">
           <span
-            className={`text-8xl font-bold text-gray-800 tabular-nums inline-block transition-transform duration-150 ${
+            className={`text-8xl font-bold text-gray-800 dark:text-gray-100 tabular-nums inline-block transition-transform duration-150 ${
               animating ? "scale-110" : "scale-100"
             }`}
           >
             {project.currentRow}
           </span>
-          <p className="text-gray-400 text-lg mt-1">段目</p>
+          <p className="text-gray-400 dark:text-gray-500 text-lg mt-1">段目</p>
         </div>
 
         {project.targetRow && remaining !== null && (
           <div className="w-full max-w-[240px] mt-2 mb-4">
-            <p className="text-center text-gray-400 text-sm mb-2">
+            <p className="text-center text-gray-400 dark:text-gray-500 text-sm mb-2">
               {remaining > 0 ? `あと${remaining}段` : "目標達成！"}
             </p>
-            <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+            <div className="w-full h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
                 className="h-full bg-[#3B82F6] rounded-full transition-all duration-300"
                 style={{ width: `${progress}%` }}
@@ -268,7 +283,7 @@ export default function CounterPage({
         {/* +1 Button */}
         <button
           onClick={handleIncrement}
-          className="w-[200px] h-[200px] rounded-full bg-[#3B82F6] text-white text-5xl font-bold shadow-lg shadow-blue-200 active:scale-95 transition-transform duration-100 mt-4 select-none"
+          className="w-[200px] h-[200px] rounded-full bg-[#3B82F6] text-white text-5xl font-bold shadow-lg shadow-blue-200 dark:shadow-blue-900/30 active:scale-95 transition-transform duration-100 mt-4 select-none"
         >
           +1
         </button>
@@ -277,13 +292,13 @@ export default function CounterPage({
         <div className="flex items-center gap-8 mt-6">
           <button
             onClick={handleDecrement}
-            className="w-[60px] h-[60px] rounded-full bg-gray-100 text-gray-500 flex items-center justify-center active:scale-90 transition-transform select-none"
+            className="w-[60px] h-[60px] rounded-full bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 flex items-center justify-center active:scale-90 transition-transform select-none"
           >
             <Minus size={24} />
           </button>
           <button
             onClick={() => setResetDialogOpen(true)}
-            className="flex items-center gap-1 text-gray-400 text-sm py-2 px-3 hover:text-gray-500 transition-colors select-none"
+            className="flex items-center gap-1 text-gray-400 dark:text-gray-500 text-sm py-2 px-3 hover:text-gray-500 dark:hover:text-gray-300 transition-colors select-none"
           >
             <RotateCcw size={16} />
             リセット
@@ -304,11 +319,11 @@ export default function CounterPage({
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleMemoSave();
               }}
-              className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-700 focus:outline-none focus:border-[#3B82F6]"
+              className="flex-1 px-3 py-2 border border-gray-200 dark:border-gray-600 rounded-lg text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-700 focus:outline-none focus:border-[#3B82F6]"
             />
             <button
               onClick={handleMemoSave}
-              className="px-3 py-2 text-sm text-[#3B82F6] font-medium"
+              className="px-3 py-2 text-sm text-[#3B82F6] dark:text-blue-400 font-medium"
             >
               保存
             </button>
@@ -319,12 +334,12 @@ export default function CounterPage({
               setMemoValue(project.memo || "");
               setEditingMemo(true);
             }}
-            className="w-full text-left text-sm py-2 px-3 rounded-lg bg-gray-50 truncate"
+            className="w-full text-left text-sm py-2 px-3 rounded-lg bg-gray-50 dark:bg-slate-800 truncate"
           >
             {project.memo ? (
-              <span className="text-gray-600">メモ: {project.memo}</span>
+              <span className="text-gray-600 dark:text-gray-400">メモ: {project.memo}</span>
             ) : (
-              <span className="text-gray-300">タップでメモ追加</span>
+              <span className="text-gray-300 dark:text-gray-600">タップでメモ追加</span>
             )}
           </button>
         )}
@@ -347,6 +362,21 @@ export default function CounterPage({
         onConfirm={handleDelete}
         onCancel={() => setDeleteDialogOpen(false)}
       />
+
+      {showAchievementModal && achievementQueue.length > 0 && (
+        <AchievementUnlockedModal
+          achievement={achievementQueue[0]}
+          onClose={() => {
+            const rest = achievementQueue.slice(1);
+            if (rest.length > 0) {
+              setAchievementQueue(rest);
+            } else {
+              setAchievementQueue([]);
+              setShowAchievementModal(false);
+            }
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -27,10 +27,10 @@ export default function SymbolDetailPage({
   if (!symbol) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[80vh] px-4">
-        <p className="text-gray-400 text-lg">記号が見つかりません</p>
+        <p className="text-gray-400 dark:text-gray-500 text-lg">記号が見つかりません</p>
         <button
           onClick={() => router.push("/symbols")}
-          className="mt-4 text-[#3B82F6] font-medium"
+          className="mt-4 text-[#3B82F6] dark:text-blue-400 font-medium"
         >
           辞典に戻る
         </button>
@@ -49,7 +49,7 @@ export default function SymbolDetailPage({
       <div className="flex items-center justify-between mb-6">
         <button
           onClick={() => router.push("/symbols")}
-          className="p-2 -ml-2 text-gray-500 hover:text-gray-700 transition-colors"
+          className="p-2 -ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
         >
           <ArrowLeft size={24} />
         </button>
@@ -62,7 +62,7 @@ export default function SymbolDetailPage({
             className={
               isFav
                 ? "fill-yellow-400 text-yellow-400"
-                : "text-gray-300 hover:text-gray-500"
+                : "text-gray-300 dark:text-gray-600 hover:text-gray-500 dark:hover:text-gray-400"
             }
           />
         </button>
@@ -70,22 +70,22 @@ export default function SymbolDetailPage({
 
       {/* Symbol Display */}
       <div className="text-center mb-8">
-        <div className="flex justify-center mb-4 text-gray-800">
+        <div className="flex justify-center mb-4 text-gray-800 dark:text-gray-200">
           <SymbolIcon svg={symbol.svg} size={120} />
         </div>
-        <h1 className="text-2xl font-bold text-gray-800">{symbol.nameJa}</h1>
-        <p className="text-gray-400 mt-1">{symbol.nameEn}</p>
-        <span className="inline-block mt-3 px-3 py-1 rounded-full bg-gray-100 text-xs text-gray-500">
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">{symbol.nameJa}</h1>
+        <p className="text-gray-400 dark:text-gray-500 mt-1">{symbol.nameEn}</p>
+        <span className="inline-block mt-3 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-500 dark:text-gray-400">
           {symbol.category}
         </span>
       </div>
 
       {/* Description */}
       <div className="mb-6">
-        <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-2">
+        <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
           説明
         </h2>
-        <p className="text-gray-700 leading-relaxed">{symbol.description}</p>
+        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{symbol.description}</p>
       </div>
 
       {/* Detail URL */}
@@ -104,7 +104,7 @@ export default function SymbolDetailPage({
       {/* Related Symbols */}
       {relatedSymbols.length > 0 && (
         <div>
-          <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">
+          <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
             関連する記号
           </h2>
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
@@ -113,12 +113,12 @@ export default function SymbolDetailPage({
                 <Link
                   key={rs.id}
                   href={`/symbols/${rs.id}`}
-                  className="shrink-0 bg-white border border-gray-100 rounded-xl p-3 shadow-sm hover:shadow-md active:scale-95 transition-all text-center w-[100px]"
+                  className="shrink-0 bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl p-3 shadow-sm hover:shadow-md active:scale-95 transition-all text-center w-[100px]"
                 >
-                  <div className="flex justify-center mb-1 text-gray-700">
+                  <div className="flex justify-center mb-1 text-gray-700 dark:text-gray-300">
                     <SymbolIcon svg={rs.svg} size={36} />
                   </div>
-                  <p className="text-xs font-bold text-gray-800 leading-tight">
+                  <p className="text-xs font-bold text-gray-800 dark:text-gray-100 leading-tight">
                     {rs.nameJa}
                   </p>
                 </Link>
