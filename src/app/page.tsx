@@ -2,21 +2,15 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Plus, CheckCircle2 } from "lucide-react";
 import { useProjectStore } from "@/store/projectStore";
-import { useAchievementStore } from "@/store/achievementStore";
 import { formatDistanceToNow } from "date-fns";
 import { ja } from "date-fns/locale";
 import AddProjectDialog from "@/components/AddProjectDialog";
-import AchievementUnlockedModal from "@/components/AchievementUnlockedModal";
-import { type Achievement } from "@/store/achievementStore";
 
 export default function ProjectListPage() {
   const { projects, addProject } = useProjectStore();
-  const { incrementProjectCount } = useAchievementStore();
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [achievementQueue, setAchievementQueue] = useState<Achievement[]>([]);
-  const [showAchievementModal, setShowAchievementModal] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -55,7 +49,12 @@ export default function ProjectListPage() {
               href={`/counter/${project.id}`}
               className="block bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow active:scale-[0.98] transition-transform"
             >
-              <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">{project.name}</h2>
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100">{project.name}</h2>
+                {project.completedAt && (
+                  <CheckCircle2 size={20} className="text-green-500 flex-shrink-0" />
+                )}
+              </div>
               <p className="text-[#3B82F6] dark:text-blue-400 font-medium mt-1">
                 {project.currentRow}段目
                 {project.targetRow && (
@@ -88,28 +87,8 @@ export default function ProjectListPage() {
         onClose={() => setDialogOpen(false)}
         onAdd={(data) => {
           addProject(data);
-          const newlyUnlocked = incrementProjectCount();
-          if (newlyUnlocked.length > 0) {
-            setAchievementQueue(newlyUnlocked);
-            setShowAchievementModal(true);
-          }
         }}
       />
-
-      {showAchievementModal && achievementQueue.length > 0 && (
-        <AchievementUnlockedModal
-          achievement={achievementQueue[0]}
-          onClose={() => {
-            const rest = achievementQueue.slice(1);
-            if (rest.length > 0) {
-              setAchievementQueue(rest);
-            } else {
-              setAchievementQueue([]);
-              setShowAchievementModal(false);
-            }
-          }}
-        />
-      )}
     </div>
   );
 }

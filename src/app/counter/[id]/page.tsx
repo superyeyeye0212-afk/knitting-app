@@ -30,7 +30,7 @@ export default function CounterPage({
     deleteProject,
     updateProject,
   } = useProjectStore();
-  const { incrementTotalRows } = useAchievementStore();
+  const { incrementTotalRows, incrementProjectCount } = useAchievementStore();
 
   const [mounted, setMounted] = useState(false);
   const [achievementQueue, setAchievementQueue] = useState<Achievement[]>([]);
@@ -45,6 +45,7 @@ export default function CounterPage({
   const [editingTarget, setEditingTarget] = useState(false);
   const [targetValue, setTargetValue] = useState("");
   const [animating, setAnimating] = useState(false);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -54,16 +55,27 @@ export default function CounterPage({
 
   const handleIncrement = useCallback(() => {
     vibrateShort();
-    incrementRow(id);
+    const justCompleted = incrementRow(id);
     setAnimating(true);
     setTimeout(() => setAnimating(false), 150);
 
-    const newlyUnlocked = incrementTotalRows(1);
-    if (newlyUnlocked.length > 0) {
-      setAchievementQueue(newlyUnlocked);
+    const allUnlocked: Achievement[] = [];
+
+    const rowUnlocked = incrementTotalRows(1);
+    allUnlocked.push(...rowUnlocked);
+
+    if (justCompleted) {
+      vibrateMedium();
+      setShowCompletionModal(true);
+      const projectUnlocked = incrementProjectCount();
+      allUnlocked.push(...projectUnlocked);
+    }
+
+    if (allUnlocked.length > 0) {
+      setAchievementQueue(allUnlocked);
       setShowAchievementModal(true);
     }
-  }, [id, incrementRow, incrementTotalRows]);
+  }, [id, incrementRow, incrementTotalRows, incrementProjectCount]);
 
   const handleDecrement = useCallback(() => {
     vibrateShort();
@@ -273,7 +285,9 @@ export default function CounterPage({
             </p>
             <div className="w-full h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
-                className="h-full bg-[#3B82F6] rounded-full transition-all duration-300"
+                className={`h-full rounded-full transition-all duration-300 ${
+                  project.completedAt ? "bg-green-500" : "bg-[#3B82F6]"
+                }`}
                 style={{ width: `${progress}%` }}
               />
             </div>
@@ -362,6 +376,25 @@ export default function CounterPage({
         onConfirm={handleDelete}
         onCancel={() => setDeleteDialogOpen(false)}
       />
+
+      {showCompletionModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/40" onClick={() => setShowCompletionModal(false)} />
+          <div className="relative bg-white dark:bg-slate-800 rounded-2xl w-[85%] max-w-xs p-8 shadow-xl text-center">
+            <div className="text-5xl mb-4">🎉</div>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">完成おめでとう！</h3>
+            <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
+              「{project.name}」が目標の{project.targetRow}段に到達しました
+            </p>
+            <button
+              onClick={() => setShowCompletionModal(false)}
+              className="w-full py-3 rounded-xl bg-green-500 text-white font-medium active:scale-95 transition-transform"
+            >
+              やったー！
+            </button>
+          </div>
+        </div>
+      )}
 
       {showAchievementModal && achievementQueue.length > 0 && (
         <AchievementUnlockedModal

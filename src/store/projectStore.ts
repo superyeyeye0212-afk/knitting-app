@@ -7,6 +7,7 @@ export interface Project {
   currentRow: number;
   targetRow?: number;
   memo?: string;
+  completedAt?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -16,7 +17,7 @@ interface ProjectStore {
   addProject: (data: { name: string; targetRow?: number }) => void;
   updateProject: (id: string, data: Partial<Project>) => void;
   deleteProject: (id: string) => void;
-  incrementRow: (id: string) => void;
+  incrementRow: (id: string) => boolean;
   decrementRow: (id: string) => void;
   resetRow: (id: string) => void;
 }
@@ -55,22 +56,38 @@ export const useProjectStore = create<ProjectStore>()(
           projects: state.projects.filter((p) => p.id !== id),
         })),
 
-      incrementRow: (id) =>
+      incrementRow: (id) => {
+        let justCompleted = false;
         set((state) => ({
-          projects: state.projects.map((p) =>
-            p.id === id
-              ? { ...p, currentRow: p.currentRow + 1, updatedAt: new Date().toISOString() }
-              : p
-          ),
-        })),
+          projects: state.projects.map((p) => {
+            if (p.id !== id) return p;
+            const newRow = p.currentRow + 1;
+            const completed = !p.completedAt && p.targetRow != null && newRow >= p.targetRow;
+            if (completed) justCompleted = true;
+            return {
+              ...p,
+              currentRow: newRow,
+              updatedAt: new Date().toISOString(),
+              ...(completed ? { completedAt: new Date().toISOString() } : {}),
+            };
+          }),
+        }));
+        return justCompleted;
+      },
 
       decrementRow: (id) =>
         set((state) => ({
-          projects: state.projects.map((p) =>
-            p.id === id
-              ? { ...p, currentRow: Math.max(0, p.currentRow - 1), updatedAt: new Date().toISOString() }
-              : p
-          ),
+          projects: state.projects.map((p) => {
+            if (p.id !== id) return p;
+            const newRow = Math.max(0, p.currentRow - 1);
+            const shouldClearCompleted = p.completedAt && p.targetRow != null && newRow < p.targetRow;
+            return {
+              ...p,
+              currentRow: newRow,
+              updatedAt: new Date().toISOString(),
+              ...(shouldClearCompleted ? { completedAt: undefined } : {}),
+            };
+          }),
         })),
 
       resetRow: (id) =>
