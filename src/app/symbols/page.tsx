@@ -107,7 +107,7 @@ export default function SymbolsPage() {
                   className="block bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md active:scale-[0.97] transition-all text-center"
                 >
                   <div className="flex justify-center mb-2 text-gray-700 dark:text-gray-300">
-                    <SymbolIcon svg={symbol.svg} size={60} />
+                    <SymbolIcon svg={symbol.svg} image={symbol.image} size={60} />
                   </div>
                   <p className="text-sm font-bold text-gray-800 dark:text-gray-100 leading-tight">
                     {symbol.nameJa}

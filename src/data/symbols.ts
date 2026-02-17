@@ -3,6 +3,7 @@ export type SymbolCategory = "基本" | "増減" | "引き上げ編み" | "応�
 export interface KnittingSymbol {
   id: string;
   svg: string;
+  image?: string;
   nameJa: string;
   nameEn: string;
   description: string;
@@ -15,7 +16,8 @@ export const symbols: KnittingSymbol[] = [
   // ── 基本（7個）──
   {
     id: "1",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="15" ry="6" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="13" ry="5" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/symbol-1.png",
     nameJa: "くさり編み",
     nameEn: "chain",
     description: "かぎ針編みの基本となる編み目。全ての編み物はここから始まります。作り目や、編み地をつなぐときに使います。",
@@ -25,7 +27,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "2",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 20 30 L 15 15 L 20 20 L 25 15 Z" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="13" ry="5" fill="currentColor"/></svg>',
+    image: "/symbols/引き抜き編み.png",
     nameJa: "引き抜き編み",
     nameEn: "slip stitch",
     description: "目立たない編み方。パーツの接続や、段の終わりによく使います。ほとんど高さが出ないので、移動や接続に便利です。",
@@ -35,7 +38,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "3",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="10" y1="10" x2="30" y2="30" stroke="currentColor" stroke-width="2"/><line x1="30" y1="10" x2="10" y2="30" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="12" x2="28" y2="28" stroke="currentColor" stroke-width="2"/><line x1="28" y1="12" x2="12" y2="28" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/こま編み.png",
     nameJa: "こま編み",
     nameEn: "single crochet",
     description: "かぎ針編みの最も基本的な編み方。低めの編み目で、しっかりした編み地になります。編み目が詰まっているので、丈夫な仕上がりになります。",
@@ -45,7 +49,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "4",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="10" x2="20" y2="35" stroke="currentColor" stroke-width="2"/><line x1="10" y1="10" x2="30" y2="10" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width="2"/><line x1="12" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/中長編み.png",
     nameJa: "中長編み",
     nameEn: "half double crochet",
     description: "細編みより少し高さのある編み目。柔らかい編み地になります。細編みと長編みの中間の高さで、バランスの良い編み地を作れます。",
@@ -55,7 +60,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "5",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="5" x2="20" y2="35" stroke="currentColor" stroke-width="2"/><line x1="10" y1="15" x2="30" y2="15" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="6" x2="20" y2="34" stroke="currentColor" stroke-width="2"/><line x1="12" y1="6" x2="28" y2="6" stroke="currentColor" stroke-width="2"/><line x1="16" y1="18" x2="24" y2="22" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長編み.png",
     nameJa: "長編み",
     nameEn: "double crochet",
     description: "高さのある編み目。早く編めて、軽い編み地になります。目が粗めなので、透け感のある作品や、ざっくりした風合いの作品に向いています。",
@@ -65,7 +71,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "6",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="5" x2="20" y2="35" stroke="currentColor" stroke-width="2"/><line x1="10" y1="12" x2="30" y2="12" stroke="currentColor" stroke-width="2"/><line x1="10" y1="20" x2="30" y2="20" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="6" x2="20" y2="34" stroke="currentColor" stroke-width="2"/><line x1="12" y1="6" x2="28" y2="6" stroke="currentColor" stroke-width="2"/><line x1="15" y1="16" x2="25" y2="20" stroke="currentColor" stroke-width="2"/><line x1="15" y1="22" x2="25" y2="26" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長々編み.png",
     nameJa: "長々編み",
     nameEn: "treble crochet",
     description: "長編みより更に高い編み目。とても軽い編み地になります。ショールなど軽さが必要な作品に向いています。",
@@ -75,7 +82,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "7",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="15" cy="20" r="3" fill="currentColor"/><circle cx="25" cy="20" r="3" fill="currentColor"/><circle cx="20" cy="28" r="3" fill="currentColor"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="12" rx="10" ry="4" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="14" cy="22" rx="4" ry="7" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(-18 14 22)"/><ellipse cx="26" cy="22" rx="4" ry="7" fill="none" stroke="currentColor" stroke-width="2" transform="rotate(18 26 22)"/><circle cx="20" cy="34" r="3" fill="currentColor"/></svg>',
+    image: "/symbols/ピコット編み.png",
     nameJa: "ピコット編み",
     nameEn: "picot",
     description: "小さな突起状の飾り。縁取りによく使います。鎖編みを数目編んで元の位置に戻る技法です。",
@@ -87,7 +95,8 @@ export const symbols: KnittingSymbol[] = [
   // ── 増減（10個）──
   {
     id: "8",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="15" y1="10" x2="15" y2="30" stroke="currentColor" stroke-width="2"/><line x1="25" y1="10" x2="25" y2="30" stroke="currentColor" stroke-width="2"/><line x1="10" y1="30" x2="30" y2="30" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="14" y1="10" x2="20" y2="28" stroke="currentColor" stroke-width="2"/><line x1="26" y1="10" x2="20" y2="28" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/こま編み2目編み入れる.png",
     nameJa: "こま編み2目編み入れる",
     nameEn: "2 single crochet increase",
     description: "1つの目から2つの目を作る増し目。同じ目に2回編み入れるのが基本的な方法です。",
@@ -97,7 +106,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "9",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="10" x2="12" y2="30" stroke="currentColor" stroke-width="2"/><line x1="20" y1="10" x2="20" y2="30" stroke="currentColor" stroke-width="2"/><line x1="28" y1="10" x2="28" y2="30" stroke="currentColor" stroke-width="2"/><line x1="8" y1="30" x2="32" y2="30" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="14" y1="12" x2="20" y2="30" stroke="currentColor" stroke-width="2"/><line x1="26" y1="12" x2="20" y2="30" stroke="currentColor" stroke-width="2"/><line x1="16" y1="8" x2="24" y2="16" stroke="currentColor" stroke-width="2"/><line x1="24" y1="8" x2="16" y2="16" stroke="currentColor" stroke-width="2"/><line x1="18" y1="16" x2="20" y2="22" stroke="currentColor" stroke-width="2"/><line x1="22" y1="16" x2="20" y2="22" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/こま編み3目編み入れる.png",
     nameJa: "こま編み3目編み入れる",
     nameEn: "3 single crochet increase",
     description: "1つの目から3つの目を作る。急激に幅を広げたいときや、特殊な形を作るときに使います。",
@@ -107,7 +117,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "10",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="15" y1="10" x2="20" y2="30" stroke="currentColor" stroke-width="2"/><line x1="25" y1="10" x2="20" y2="30" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="14" y1="28" x2="20" y2="12" stroke="currentColor" stroke-width="2"/><line x1="26" y1="28" x2="20" y2="12" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/こま編み2目1度.png",
     nameJa: "こま編み2目一度",
     nameEn: "single crochet 2 together",
     description: "2つの目を1つにまとめる。編み地の幅を狭めたり、形を整えるときに使います。2目一度とも呼ばれます。",
@@ -117,7 +128,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "11",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="15" y1="10" x2="15" y2="28" stroke="currentColor" stroke-width="2"/><line x1="25" y1="10" x2="25" y2="28" stroke="currentColor" stroke-width="2"/><line x1="10" y1="10" x2="30" y2="10" stroke="currentColor" stroke-width="2"/><line x1="10" y1="28" x2="30" y2="28" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="16" y1="10" x2="20" y2="32" stroke="currentColor" stroke-width="2"/><line x1="24" y1="10" x2="20" y2="32" stroke="currentColor" stroke-width="2"/><line x1="10" y1="10" x2="20" y2="10" stroke="currentColor" stroke-width="2"/><line x1="20" y1="10" x2="30" y2="10" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/中長編み2目編み入れる.png",
     nameJa: "中長編み2目編み入れる",
     nameEn: "2 half double crochet shell",
     description: "1つの目に2つの中長編みを編み入れる増し目。細編みより高さがあり、長編みより詰まった編み地になります。",
@@ -127,7 +139,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "12",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="15" y1="10" x2="20" y2="28" stroke="currentColor" stroke-width="2"/><line x1="25" y1="10" x2="20" y2="28" stroke="currentColor" stroke-width="2"/><line x1="10" y1="10" x2="30" y2="10" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="10" x2="20" y2="12" stroke="currentColor" stroke-width="2"/><line x1="12" y1="10" x2="28" y2="10" stroke="currentColor" stroke-width="2"/><line x1="16" y1="32" x2="20" y2="12" stroke="currentColor" stroke-width="2"/><line x1="24" y1="32" x2="20" y2="12" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/中長編み2目一度.png",
     nameJa: "中長編み2目一度",
     nameEn: "half double crochet 2 together",
     description: "2つの目を1つの中長編みでまとめる減し目。中長編みの高さを保ちながら目を減らせます。",
@@ -137,7 +150,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "13",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="15" y1="5" x2="15" y2="33" stroke="currentColor" stroke-width="2"/><line x1="25" y1="5" x2="25" y2="33" stroke="currentColor" stroke-width="2"/><line x1="10" y1="15" x2="30" y2="15" stroke="currentColor" stroke-width="2"/><line x1="10" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="16" y1="8" x2="20" y2="34" stroke="currentColor" stroke-width="2"/><line x1="24" y1="8" x2="20" y2="34" stroke="currentColor" stroke-width="2"/><line x1="10" y1="8" x2="20" y2="8" stroke="currentColor" stroke-width="2"/><line x1="20" y1="8" x2="30" y2="8" stroke="currentColor" stroke-width="2"/><line x1="14" y1="18" x2="22" y2="22" stroke="currentColor" stroke-width="2"/><line x1="18" y1="18" x2="26" y2="22" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長編み2目編み入れる.png",
     nameJa: "長編み2目編み入れる",
     nameEn: "2 double crochet shell",
     description: "1つの目に2つの長編みを編み入れる増し目。V字型の編み目ができ、模様編みの基本となります。",
@@ -147,7 +161,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "14",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="15" y1="5" x2="20" y2="33" stroke="currentColor" stroke-width="2"/><line x1="25" y1="5" x2="20" y2="33" stroke="currentColor" stroke-width="2"/><line x1="10" y1="15" x2="30" y2="15" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="8" x2="20" y2="10" stroke="currentColor" stroke-width="2"/><line x1="12" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/><line x1="16" y1="34" x2="20" y2="10" stroke="currentColor" stroke-width="2"/><line x1="24" y1="34" x2="20" y2="10" stroke="currentColor" stroke-width="2"/><line x1="14" y1="22" x2="22" y2="26" stroke="currentColor" stroke-width="2"/><line x1="18" y1="22" x2="26" y2="26" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長編み2目一度.png",
     nameJa: "長編み2目一度",
     nameEn: "double crochet 2 together",
     description: "2つの目を1つの長編みでまとめる減し目。なめらかに幅を狭めることができます。",
@@ -157,7 +172,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "15",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="15" y1="5" x2="15" y2="33" stroke="currentColor" stroke-width="2"/><line x1="25" y1="5" x2="25" y2="33" stroke="currentColor" stroke-width="2"/><line x1="10" y1="12" x2="30" y2="12" stroke="currentColor" stroke-width="2"/><line x1="10" y1="20" x2="30" y2="20" stroke="currentColor" stroke-width="2"/><line x1="10" y1="33" x2="30" y2="33" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="16" y1="8" x2="20" y2="34" stroke="currentColor" stroke-width="2"/><line x1="24" y1="8" x2="20" y2="34" stroke="currentColor" stroke-width="2"/><line x1="10" y1="8" x2="20" y2="8" stroke="currentColor" stroke-width="2"/><line x1="20" y1="8" x2="30" y2="8" stroke="currentColor" stroke-width="2"/><line x1="13" y1="16" x2="23" y2="20" stroke="currentColor" stroke-width="2"/><line x1="13" y1="22" x2="23" y2="26" stroke="currentColor" stroke-width="2"/><line x1="17" y1="16" x2="27" y2="20" stroke="currentColor" stroke-width="2"/><line x1="17" y1="22" x2="27" y2="26" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長々編み2目編み入れる.png",
     nameJa: "長々編み2目編み入れる",
     nameEn: "2 treble crochet shell",
     description: "1つの目に2つの長々編みを編み入れる増し目。長編みより高さがあるので、素早く幅を広げられます。",
@@ -167,7 +183,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "16",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="15" y1="5" x2="20" y2="33" stroke="currentColor" stroke-width="2"/><line x1="25" y1="5" x2="20" y2="33" stroke="currentColor" stroke-width="2"/><line x1="10" y1="12" x2="30" y2="12" stroke="currentColor" stroke-width="2"/><line x1="10" y1="20" x2="30" y2="20" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="8" x2="20" y2="10" stroke="currentColor" stroke-width="2"/><line x1="12" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/><line x1="16" y1="34" x2="20" y2="10" stroke="currentColor" stroke-width="2"/><line x1="24" y1="34" x2="20" y2="10" stroke="currentColor" stroke-width="2"/><line x1="13" y1="22" x2="23" y2="26" stroke="currentColor" stroke-width="2"/><line x1="13" y1="16" x2="23" y2="20" stroke="currentColor" stroke-width="2"/><line x1="17" y1="22" x2="27" y2="26" stroke="currentColor" stroke-width="2"/><line x1="17" y1="16" x2="27" y2="20" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長々編み2目一度.png",
     nameJa: "長々編み2目一度",
     nameEn: "treble crochet 2 together",
     description: "2つの目を1つの長々編みでまとめる減し目。高さのある減し目なので、デザイン的な効果も出せます。",
@@ -179,7 +196,8 @@ export const symbols: KnittingSymbol[] = [
   // ── 引き上げ編み（6個）──
   {
     id: "17",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 10 30 Q 20 10, 30 30" fill="none" stroke="currentColor" stroke-width="2"/><line x1="20" y1="15" x2="20" y2="25" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="12" x2="28" y2="28" stroke="currentColor" stroke-width="2"/><line x1="28" y1="12" x2="12" y2="28" stroke="currentColor" stroke-width="2"/><path d="M22 18 V24 C22 34 10 34 10 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    image: "/symbols/こま編み表引き上げ編み.png",
     nameJa: "こま編み表引き上げ編み",
     nameEn: "front post single crochet",
     description: "前段の目の表側（手前側）に針を入れて編む技法。立体的な編み地を作ることができます。リブ編みや模様編みによく使われます。",
@@ -189,7 +207,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "18",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 10 30 Q 20 35, 30 30" fill="none" stroke="currentColor" stroke-width="2"/><line x1="20" y1="20" x2="20" y2="30" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="12" x2="28" y2="28" stroke="currentColor" stroke-width="2"/><line x1="28" y1="12" x2="12" y2="28" stroke="currentColor" stroke-width="2"/><path d="M18 18 V24 C18 34 30 34 30 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    image: "/symbols/こま編み裏引き上げ編み.png",
     nameJa: "こま編み裏引き上げ編み",
     nameEn: "back post single crochet",
     description: "前段の目の裏側（向こう側）に針を入れて編む技法。表引き上げ編みと組み合わせることで、ゴム編みのような伸縮性のある編み地が作れます。",
@@ -199,7 +218,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "19",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 10 30 Q 20 10, 30 30" fill="none" stroke="currentColor" stroke-width="2"/><line x1="20" y1="12" x2="20" y2="28" stroke="currentColor" stroke-width="2"/><line x1="15" y1="12" x2="25" y2="12" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/><path d="M20 8 V18 M22 18 V24 C22 34 10 34 10 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    image: "/symbols/中長編み表引き上げ編み.png",
     nameJa: "中長編み表引き上げ編み",
     nameEn: "front post half double crochet",
     description: "前段の目の表側に針を入れて中長編みする技法。リブ編みや模様編みに使い、立体感のある編み地が作れます。",
@@ -209,7 +229,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "20",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 10 30 Q 20 35, 30 30" fill="none" stroke="currentColor" stroke-width="2"/><line x1="20" y1="18" x2="20" y2="30" stroke="currentColor" stroke-width="2"/><line x1="15" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/><path d="M20 8 V18 M18 18 V24 C18 34 30 34 30 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    image: "/symbols/中長編み裏引き上げ編み.png",
     nameJa: "中長編み裏引き上げ編み",
     nameEn: "back post half double crochet",
     description: "前段の目の裏側に針を入れて中長編みする技法。表引き上げ編みと交互に編むことで、伸縮性のある編み地が作れます。",
@@ -219,7 +240,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "21",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 10 30 Q 20 8, 30 30" fill="none" stroke="currentColor" stroke-width="2"/><line x1="20" y1="10" x2="20" y2="28" stroke="currentColor" stroke-width="2"/><line x1="15" y1="18" x2="25" y2="18" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="6" x2="28" y2="6" stroke="currentColor" stroke-width="2"/><line x1="20" y1="6" x2="20" y2="18" stroke="currentColor" stroke-width="2"/><line x1="16" y1="16" x2="24" y2="20" stroke="currentColor" stroke-width="2"/><path d="M22 18 V24 C22 34 10 34 10 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    image: "/symbols/長編み表引き上げ編み.png",
     nameJa: "長編み表引き上げ編み",
     nameEn: "front post double crochet",
     description: "前段の目の表側に針を入れて長編みする技法。ケーブル編みや模様編みによく使われ、はっきりとした立体感が出ます。",
@@ -229,7 +251,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "22",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 10 30 Q 20 35, 30 30" fill="none" stroke="currentColor" stroke-width="2"/><line x1="20" y1="15" x2="20" y2="30" stroke="currentColor" stroke-width="2"/><line x1="15" y1="22" x2="25" y2="22" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="6" x2="28" y2="6" stroke="currentColor" stroke-width="2"/><line x1="20" y1="6" x2="20" y2="18" stroke="currentColor" stroke-width="2"/><line x1="16" y1="16" x2="24" y2="20" stroke="currentColor" stroke-width="2"/><path d="M18 18 V24 C18 34 30 34 30 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>',
+    image: "/symbols/長編み裏引き上げ編み.png",
     nameJa: "長編み裏引き上げ編み",
     nameEn: "back post double crochet",
     description: "前段の目の裏側に針を入れて長編みする技法。表引き上げ編みと組み合わせて、リブ編みや模様編みを作ります。",
@@ -241,7 +264,8 @@ export const symbols: KnittingSymbol[] = [
   // ── 応用（6個）──
   {
     id: "23",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="8" fill="currentColor"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width="2"/><line x1="12" y1="8" x2="28" y2="8" stroke="currentColor" stroke-width="2"/><ellipse cx="20" cy="20" rx="8" ry="12" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/中長編み3目の玉編み.png",
     nameJa: "中長編み3目の玉編み",
     nameEn: "3 half double crochet puff stitch",
     description: "1つの目に中長編みを3回編み入れて、最後に一度にまとめる技法。ぷっくりとした玉のような編み目ができます。",
@@ -251,7 +275,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "24",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="currentColor"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="20" rx="8" ry="12" fill="none" stroke="currentColor" stroke-width="2"/><line x1="20" y1="8" x2="20" y2="32" stroke="currentColor" stroke-width="2"/><line x1="14" y1="16" x2="22" y2="20" stroke="currentColor" stroke-width="2"/><line x1="14" y1="20" x2="22" y2="24" stroke="currentColor" stroke-width="2"/><line x1="14" y1="24" x2="22" y2="28" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長編み3目の玉編み.png",
     nameJa: "長編み3目の玉編み",
     nameEn: "3 double crochet bobble",
     description: "1つの目に長編みを3回編み入れて、最後に一度にまとめる技法。立体的で装飾的な編み目になります。",
@@ -261,7 +286,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "25",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="12" fill="currentColor"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="10" rx="8" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="20" cy="23" rx="10" ry="13" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="13" x2="20" y2="35" stroke="currentColor" stroke-width="2"/><line x1="18" y1="13" x2="20" y2="35" stroke="currentColor" stroke-width="2"/><line x1="22" y1="13" x2="20" y2="35" stroke="currentColor" stroke-width="2"/><line x1="26" y1="13" x2="20" y2="35" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長編み5目のパプコーン編み.png",
     nameJa: "長編み5目のパプコーン編み",
     nameEn: "5 double crochet popcorn",
     description: "1つの目に長編みを5回編み、最初と最後の目を引き抜き編みでまとめる技法。玉編みよりさらにぷっくりとした立体感が出ます。",
@@ -271,7 +297,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "26",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="8" x2="28" y2="32" stroke="currentColor" stroke-width="2"/><line x1="28" y1="8" x2="12" y2="32" stroke="currentColor" stroke-width="2"/><line x1="10" y1="16" x2="30" y2="16" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="14" y1="34" x2="26" y2="10" stroke="currentColor" stroke-width="2"/><line x1="26" y1="34" x2="14" y2="10" stroke="currentColor" stroke-width="2"/><line x1="8" y1="10" x2="20" y2="10" stroke="currentColor" stroke-width="2"/><line x1="20" y1="10" x2="32" y2="10" stroke="currentColor" stroke-width="2"/><line x1="14" y1="20" x2="22" y2="24" stroke="currentColor" stroke-width="2"/><line x1="18" y1="20" x2="26" y2="24" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長編み交差.png",
     nameJa: "長編み交差",
     nameEn: "crossed double crochet",
     description: "2つの長編みを交差させて編む技法。編み地に×の模様ができます。レース編みや模様編みによく使われます。",
@@ -281,7 +308,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "27",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 10 30 L 10 15 Q 10 5, 20 5 Q 30 5, 30 15 L 30 30" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M14 10 V26 C14 34 26 34 26 26 V10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="14" x2="24" y2="24" stroke="currentColor" stroke-width="2"/><line x1="24" y1="14" x2="16" y2="24" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/リング編み.png",
     nameJa: "リング編み",
     nameEn: "loop stitch",
     description: "糸でループを作りながら編む技法。毛足の長いふわふわした編み地になります。ぬいぐるみの毛並みなどに使われます。",
@@ -291,7 +319,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "28",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 8 30 L 12 5 L 16 30 L 20 5 L 24 30 L 28 5 L 32 30" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><line x1="10" y1="10" x2="20" y2="26"/><line x1="15" y1="10" x2="20" y2="26"/><line x1="20" y1="10" x2="20" y2="26"/><line x1="25" y1="10" x2="20" y2="26"/><line x1="30" y1="10" x2="20" y2="26"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="11" y1="10" x2="19" y2="10"/><line x1="16" y1="10" x2="24" y2="10"/><line x1="21" y1="10" x2="29" y2="10"/><line x1="26" y1="10" x2="34" y2="10"/></g><line x1="12" y1="30" x2="28" y2="38" stroke="currentColor" stroke-width="2"/><line x1="28" y1="30" x2="12" y2="38" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/長編み5目を前段の1目に編み入れる.png",
     nameJa: "長編み5目を前段の1目に編み入れる",
     nameEn: "5 double crochet shell",
     description: "1つの目に長編みを5回編み入れる技法。貝殻のような扇形の編み目ができ、レース編みや模様編みによく使われます。",
@@ -301,7 +330,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "29",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><rect x="10" y="10" width="20" height="10" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="20" x2="12" y2="30" stroke="currentColor" stroke-width="2"/><line x1="17" y1="20" x2="17" y2="30" stroke="currentColor" stroke-width="2"/><line x1="22" y1="20" x2="22" y2="30" stroke="currentColor" stroke-width="2"/><line x1="27" y1="20" x2="27" y2="30" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><g stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><line x1="10" y1="10" x2="20" y2="26"/><line x1="15" y1="10" x2="20" y2="26"/><line x1="20" y1="10" x2="20" y2="26"/><line x1="25" y1="10" x2="20" y2="26"/><line x1="30" y1="10" x2="20" y2="26"/><line x1="6" y1="10" x2="14" y2="10"/><line x1="11" y1="10" x2="19" y2="10"/><line x1="16" y1="10" x2="24" y2="10"/><line x1="21" y1="10" x2="29" y2="10"/><line x1="26" y1="10" x2="34" y2="10"/></g><ellipse cx="17" cy="30" rx="6" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="23" cy="30" rx="6" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="32" x2="20" y2="38" stroke="currentColor" stroke-width="2"/><line x1="26" y1="32" x2="20" y2="38" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/前段の目を束にすくって長編み5目編む.png",
     nameJa: "前段の目を束にすくって長編み5目編む",
     nameEn: "5 dc shell in chain space",
     description: "前段のくさり目を丸ごとすくって長編み5目を編む技法。くさりの穴に針を通すので、編みやすく模様もきれいに出ます。",
@@ -313,7 +343,8 @@ export const symbols: KnittingSymbol[] = [
   // ── 特殊（7個）──
   {
     id: "30",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="10" y1="25" x2="30" y2="25" stroke="currentColor" stroke-width="3"/><line x1="15" y1="15" x2="15" y2="30" stroke="currentColor" stroke-width="2"/><line x1="25" y1="15" x2="25" y2="30" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="12" y1="12" x2="28" y2="28" stroke="currentColor" stroke-width="2"/><line x1="28" y1="12" x2="12" y2="28" stroke="currentColor" stroke-width="2"/><line x1="12" y1="32" x2="28" y2="32" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/すじ編み.png",
     nameJa: "すじ編み",
     nameEn: "single crochet in back loop only",
     description: "前段の目の奥側の1本だけをすくって編む技法。編み地に横線の筋が入り、独特の質感になります。帽子のリブ部分などによく使われます。",
@@ -323,7 +354,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "31",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 30 10 L 10 20 L 30 30" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M10 10 C14 6 18 14 22 10 C26 6 30 14 34 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="12" y1="16" x2="28" y2="32" stroke="currentColor" stroke-width="2"/><line x1="28" y1="16" x2="12" y2="32" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/バックこま編み.png",
     nameJa: "バックこま編み",
     nameEn: "reverse single crochet",
     description: "通常と逆方向（左から右）に編むこま編み。カニ編みとも呼ばれ、作品の縁取りに使うとロープのような丈夫な縁ができます。",
@@ -333,7 +365,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "32",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><path d="M 10 20 Q 15 10, 20 20 Q 25 30, 30 20" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="12" y1="16" x2="28" y2="32" stroke="currentColor" stroke-width="2"/><line x1="28" y1="16" x2="12" y2="32" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/ねじりこま編み.png",
     nameJa: "ねじりこま編み",
     nameEn: "twisted single crochet",
     description: "針を入れる位置を少しずらして編むこま編み。編み目がねじれて、独特の質感になります。アクセントとして使われることが多いです。",
@@ -343,7 +376,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "33",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="10" y1="25" x2="30" y2="25" stroke="currentColor" stroke-width="2"/><circle cx="15" cy="15" r="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="22" y1="10" x2="22" y2="20" stroke="currentColor" stroke-width="2"/><circle cx="28" cy="15" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="20" cy="12" rx="7" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="16" x2="20" y2="32" stroke="currentColor" stroke-width="2"/><line x1="26" y1="16" x2="20" y2="32" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/こま編み1､くさり1､こま編み1の順に編む.png",
     nameJa: "こま編み1、くさり1、こま編み1",
     nameEn: "sc, ch1, sc in same stitch",
     description: "1つの目にこま編み、くさり1目、こま編みの順に編み入れる技法。角の部分を作るときや、編み地を広げるときに使います。",
@@ -353,7 +387,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "34",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="10" y1="28" x2="30" y2="28" stroke="currentColor" stroke-width="2"/><circle cx="14" cy="18" r="3" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="20" cy="10" r="2" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="26" cy="18" r="3" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><ellipse cx="16" cy="12" rx="6" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><ellipse cx="24" cy="12" rx="6" ry="3" fill="none" stroke="currentColor" stroke-width="2"/><line x1="14" y1="16" x2="20" y2="32" stroke="currentColor" stroke-width="2"/><line x1="26" y1="16" x2="20" y2="32" stroke="currentColor" stroke-width="2"/></svg>',
+    image: "/symbols/こま編み1､くさり2､こま編み1の順に編む.png",
     nameJa: "こま編み1、くさり2、こま編み1",
     nameEn: "sc, ch2, sc in same stitch",
     description: "1つの目にこま編み、くさり2目、こま編みの順に編み入れる技法。より大きな角を作ったり、装飾的な効果を出すときに使います。",
@@ -363,7 +398,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "35",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><circle cx="20" cy="20" r="10" fill="currentColor"/><line x1="14" y1="20" x2="26" y2="20" stroke="white" stroke-width="2.5"/><line x1="20" y1="14" x2="20" y2="26" stroke="white" stroke-width="2.5"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><polygon points="14,10 30,20 14,30" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
+    image: "/symbols/糸をつける.png",
     nameJa: "糸をつける",
     nameEn: "join yarn",
     description: "新しい糸を編み地につなぐ記号。色を変えるときや、糸が終わったときに新しい糸を始める位置を示します。",
@@ -373,7 +409,8 @@ export const symbols: KnittingSymbol[] = [
   },
   {
     id: "36",
-    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><line x1="10" y1="10" x2="30" y2="30" stroke="currentColor" stroke-width="3"/><line x1="30" y1="10" x2="10" y2="30" stroke="currentColor" stroke-width="3"/></svg>',
+    svg: '<svg width="40" height="40" viewBox="0 0 40 40"><polygon points="14,10 30,20 14,30" fill="currentColor"/></svg>',
+    image: "/symbols/糸を切る.png",
     nameJa: "糸を切る",
     nameEn: "fasten off",
     description: "編み終わりで糸を切る記号。編み終わりの位置を示します。",

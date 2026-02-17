@@ -71,7 +71,7 @@ export default function SymbolDetailPage({
       {/* Symbol Display */}
       <div className="text-center mb-8">
         <div className="flex justify-center mb-4 text-gray-800 dark:text-gray-200">
-          <SymbolIcon svg={symbol.svg} size={120} />
+          <SymbolIcon svg={symbol.svg} image={symbol.image} size={120} />
         </div>
         <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">{symbol.nameJa}</h1>
         <p className="text-gray-400 dark:text-gray-500 mt-1">{symbol.nameEn}</p>
@@ -116,7 +116,7 @@ export default function SymbolDetailPage({
                   className="shrink-0 bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl p-3 shadow-sm hover:shadow-md active:scale-95 transition-all text-center w-[100px]"
                 >
                   <div className="flex justify-center mb-1 text-gray-700 dark:text-gray-300">
-                    <SymbolIcon svg={rs.svg} size={36} />
+                    <SymbolIcon svg={rs.svg} image={rs.image} size={36} />
                   </div>
                   <p className="text-xs font-bold text-gray-800 dark:text-gray-100 leading-tight">
                     {rs.nameJa}
