@@ -1,4 +1,4 @@
-export type FAQCategory = "目数の問題" | "編み方の問題" | "パターンの読み方" | "その他";
+export type FAQCategory = "stitchCount" | "technique" | "pattern" | "other";
 
 export interface FAQ {
   id: string;
@@ -8,17 +8,17 @@ export interface FAQ {
 }
 
 export const faqCategories: FAQCategory[] = [
-  "目数の問題",
-  "編み方の問題",
-  "パターンの読み方",
-  "その他",
+  "stitchCount",
+  "technique",
+  "pattern",
+  "other",
 ];
 
 export const faqs: FAQ[] = [
-  // 目数の問題
+  // stitchCount
   {
     id: "1",
-    category: "目数の問題",
+    category: "stitchCount",
     question: "編んでいたら目数が増えている",
     answer: `【症状】予定より目が多くなっている
 
@@ -35,7 +35,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "2",
-    category: "目数の問題",
+    category: "stitchCount",
     question: "編んでいたら目数が減っている",
     answer: `【症状】予定より目が少なくなっている
 
@@ -52,7 +52,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "3",
-    category: "目数の問題",
+    category: "stitchCount",
     question: "どこで間違えたか分からない",
     answer: `【確認方法】
 1. 編み地を平らに広げて全体を見る
@@ -68,7 +68,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "4",
-    category: "目数の問題",
+    category: "stitchCount",
     question: "段の最初と最後が分からなくなった",
     answer: `【見分け方】
 • 作り目側から見て、右側が段の始まり（日本式）
@@ -82,7 +82,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "5",
-    category: "目数の問題",
+    category: "stitchCount",
     question: "目数は合っているのに形がおかしい",
     answer: `【考えられる原因】
 • 表と裏を間違えている
@@ -100,10 +100,10 @@ export const faqs: FAQ[] = [
 • 何段か編んで慣れる`,
   },
 
-  // 編み方の問題
+  // technique
   {
     id: "6",
-    category: "編み方の問題",
+    category: "technique",
     question: "表編みと裏編みの違いが分からない",
     answer: `【見分け方】
 
@@ -129,7 +129,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "7",
-    category: "編み方の問題",
+    category: "technique",
     question: "編み目がきつすぎる/緩すぎる",
     answer: `【きつい場合】
 • 針を1〜2号太くする
@@ -150,7 +150,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "8",
-    category: "編み方の問題",
+    category: "technique",
     question: "編み間違えたけどほどき方が分からない",
     answer: `【1〜2目だけの場合】
 1. 針を抜く
@@ -177,7 +177,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "9",
-    category: "編み方の問題",
+    category: "technique",
     question: "針に糸をかける向きが分からない",
     answer: `【基本ルール】
 • 手前から向こう側へ（時計回り）
@@ -200,7 +200,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "10",
-    category: "編み方の問題",
+    category: "technique",
     question: "段の高さが揃わない",
     answer: `【原因】
 • 力加減が一定でない
@@ -219,10 +219,10 @@ export const faqs: FAQ[] = [
 • 定期的に休憩を取る`,
   },
 
-  // パターンの読み方
+  // pattern
   {
     id: "11",
-    category: "パターンの読み方",
+    category: "pattern",
     question: "編み図のどこから読めばいいか分からない",
     answer: `【基本ルール（日本式）】
 • 右から左へ読む
@@ -245,7 +245,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "12",
-    category: "パターンの読み方",
+    category: "pattern",
     question: "繰り返し記号の意味が分からない",
     answer: `【表記例】
 「*〜*を3回繰り返す」
@@ -266,7 +266,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "13",
-    category: "パターンの読み方",
+    category: "pattern",
     question: "記号の意味が分からない",
     answer: `【対処法】
 1. このアプリの「記号辞典」タブを開く
@@ -287,7 +287,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "14",
-    category: "パターンの読み方",
+    category: "pattern",
     question: "サイズの調整方法が分からない",
     answer: `【基本的な考え方】
 • ゲージ（10cm四方の目数・段数）を確認
@@ -310,7 +310,7 @@ export const faqs: FAQ[] = [
   },
   {
     id: "15",
-    category: "パターンの読み方",
+    category: "pattern",
     question: "編み図と実物が違う",
     answer: `【確認ポイント】
 1. ゲージは合っているか
@@ -331,10 +331,10 @@ export const faqs: FAQ[] = [
 • 写真と比較しながら進める`,
   },
 
-  // その他
+  // other
   {
     id: "16",
-    category: "その他",
+    category: "other",
     question: "もう何もかも分からない、疲れた",
     answer: `【診断結果】がんばりすぎ症候群です。
 

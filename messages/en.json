@@ -1,0 +1,96 @@
+{
+  "app": {
+    "title": "Knitting Assistant",
+    "shortTitle": "KnitAssist"
+  },
+  "nav": {
+    "counter": "Counter",
+    "symbols": "Symbols",
+    "faq": "FAQ",
+    "achievements": "Achievements"
+  },
+  "counter": {
+    "title": "Knitting Projects",
+    "newProject": "New Project",
+    "noProjects": "No projects yet",
+    "startButton": "Get started with the button below",
+    "projectName": "Project Name",
+    "projectNameRequired": "Project Name *",
+    "projectNamePlaceholder": "e.g. Scarf",
+    "targetRows": "Target Rows",
+    "targetRowsOptional": "Target Rows (Optional)",
+    "targetRowsPlaceholder": "Leave blank for no target",
+    "targetRowsInputPlaceholder": "e.g. 50",
+    "currentRow": "Row",
+    "rowsRemaining": "{count} rows remaining",
+    "targetReached": "Target Reached!",
+    "increment": "+1",
+    "decrement": "-1",
+    "reset": "Reset",
+    "memo": "Memo",
+    "memoLabel": "Memo: {memo}",
+    "addMemo": "Tap to add memo",
+    "memoPlaceholder": "Enter memo",
+    "editName": "Edit Name",
+    "editTarget": "Edit Target Rows",
+    "delete": "Delete",
+    "confirmResetTitle": "Reset",
+    "confirmResetMessage": "Are you sure you want to reset? The row count will return to 0.",
+    "confirmDeleteTitle": "Delete Project",
+    "confirmDeleteMessage": "Delete \"{name}\"? This action cannot be undone.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create",
+    "back": "Back",
+    "completionTitle": "Congratulations!",
+    "completionMessage": "\"{name}\" has reached the target of {targetRow} rows!",
+    "completionButton": "Awesome!",
+    "notFound": "Project not found",
+    "backToList": "Back to list"
+  },
+  "symbols": {
+    "title": "Crochet Symbols",
+    "search": "Search symbols (Japanese/English)",
+    "categories": {
+      "all": "All",
+      "favorites": "Favorites",
+      "basic": "Basic",
+      "increase": "Increase/Decrease",
+      "raised": "Post Stitches",
+      "special": "Special",
+      "advanced": "Advanced"
+    },
+    "detailLink": "View detailed instructions on Ronique's site",
+    "relatedSymbols": "Related Symbols",
+    "noFavorites": "No favorites yet",
+    "notFound": "No matching symbols",
+    "notFoundDetail": "Symbol not found",
+    "backToDictionary": "Back to dictionary",
+    "description": "Description"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Check here when you need help",
+    "search": "Search questions",
+    "all": "All",
+    "categories": {
+      "stitchCount": "Stitch Count Issues",
+      "technique": "Technique Problems",
+      "pattern": "Reading Patterns",
+      "other": "Other"
+    },
+    "notFound": "No results found",
+    "notFoundHint": "Try searching with different keywords"
+  },
+  "achievements": {
+    "title": "Achievements",
+    "unlocked": "Achievement Unlocked!",
+    "progress": "Progress",
+    "totalRows": "Total Rows",
+    "projectCount": "Projects",
+    "unlockedCount": "Achievements",
+    "close": "Awesome!",
+    "rowsUnit": " rows",
+    "itemsUnit": " items"
+  }
+}

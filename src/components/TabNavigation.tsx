@@ -3,27 +3,33 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Hash, BookOpen, HelpCircle, Trophy } from "lucide-react";
-
-const tabs = [
-  { href: "/", label: "カウンター", icon: Hash },
-  { href: "/symbols", label: "記号辞典", icon: BookOpen },
-  { href: "/achievements", label: "実績", icon: Trophy },
-  { href: "/faq", label: "FAQ", icon: HelpCircle },
-];
+import { useTranslations } from "next-intl";
 
 export default function TabNavigation() {
   const pathname = usePathname();
+  const t = useTranslations("nav");
+
+  // Extract locale from path (e.g., /ja/symbols → ja)
+  const segments = pathname.split("/");
+  const locale = segments[1] || "ja";
+
+  const tabs = [
+    { href: `/${locale}`, label: t("counter"), icon: Hash },
+    { href: `/${locale}/symbols`, label: t("symbols"), icon: BookOpen },
+    { href: `/${locale}/achievements`, label: t("achievements"), icon: Trophy },
+    { href: `/${locale}/faq`, label: t("faq"), icon: HelpCircle },
+  ];
 
   // Hide tab bar on counter detail page
-  if (pathname.startsWith("/counter/")) return null;
+  if (pathname.includes("/counter/")) return null;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-gray-700 z-30">
       <div className="flex justify-around items-center h-16 max-w-md mx-auto">
         {tabs.map((tab) => {
           const isActive =
-            tab.href === "/"
-              ? pathname === "/"
+            tab.href === `/${locale}`
+              ? pathname === `/${locale}` || pathname === `/${locale}/`
               : pathname.startsWith(tab.href);
           const Icon = tab.icon;
           return (

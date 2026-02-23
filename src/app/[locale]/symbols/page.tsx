@@ -6,24 +6,27 @@ import { Search, Star } from "lucide-react";
 import { symbols, type SymbolCategory } from "@/data/symbols";
 import { useFavoriteStore } from "@/store/favoriteStore";
 import SymbolIcon from "@/components/SymbolIcon";
+import { useTranslations, useLocale } from "next-intl";
 
 type FilterTab = "all" | "favorites" | SymbolCategory;
-
-const filterTabs: { key: FilterTab; label: string }[] = [
-  { key: "all", label: "すべて" },
-  { key: "favorites", label: "お気に入り" },
-  { key: "基本", label: "基本" },
-  { key: "増減", label: "増減" },
-  { key: "引き上げ編み", label: "引き上げ編み" },
-  { key: "応用", label: "応用" },
-  { key: "特殊", label: "特殊" },
-];
 
 export default function SymbolsPage() {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
   const [query, setQuery] = useState("");
   const { favorites, toggleFavorite } = useFavoriteStore();
   const [mounted, setMounted] = useState(false);
+  const t = useTranslations("symbols");
+  const locale = useLocale();
+
+  const filterTabs: { key: FilterTab; label: string }[] = [
+    { key: "all", label: t("categories.all") },
+    { key: "favorites", label: t("categories.favorites") },
+    { key: "基本", label: t("categories.basic") },
+    { key: "増減", label: t("categories.increase") },
+    { key: "引き上げ編み", label: t("categories.raised") },
+    { key: "応用", label: t("categories.advanced") },
+    { key: "特殊", label: t("categories.special") },
+  ];
 
   useEffect(() => {
     setMounted(true);
@@ -53,7 +56,7 @@ export default function SymbolsPage() {
 
   return (
     <div className="px-4 pt-10 pb-24 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">編み図記号辞典</h1>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">{t("title")}</h1>
 
       {/* Search */}
       <div className="relative mb-4">
@@ -65,7 +68,7 @@ export default function SymbolsPage() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="記号を検索（日本語・英語）"
+          placeholder={t("search")}
           className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl text-sm text-gray-800 dark:text-gray-100 bg-white dark:bg-slate-800 placeholder-gray-300 dark:placeholder-gray-500 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-colors"
         />
       </div>
@@ -91,9 +94,7 @@ export default function SymbolsPage() {
       {filtered.length === 0 ? (
         <div className="text-center mt-16">
           <p className="text-gray-400 dark:text-gray-500">
-            {activeTab === "favorites"
-              ? "お気に入りがありません"
-              : "該当する記号がありません"}
+            {activeTab === "favorites" ? t("noFavorites") : t("notFound")}
           </p>
         </div>
       ) : (
@@ -103,17 +104,17 @@ export default function SymbolsPage() {
             return (
               <div key={symbol.id} className="relative">
                 <Link
-                  href={`/symbols/${symbol.id}`}
+                  href={`/${locale}/symbols/${symbol.id}`}
                   className="block bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-2xl p-4 shadow-sm hover:shadow-md active:scale-[0.97] transition-all text-center"
                 >
                   <div className="flex justify-center mb-2 text-gray-700 dark:text-gray-300">
                     <SymbolIcon svg={symbol.svg} image={symbol.image} size={60} />
                   </div>
                   <p className="text-sm font-bold text-gray-800 dark:text-gray-100 leading-tight">
-                    {symbol.nameJa}
+                    {locale === "ja" ? symbol.nameJa : symbol.nameEn}
                   </p>
                   <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
-                    {symbol.nameEn}
+                    {locale === "ja" ? symbol.nameEn : symbol.nameJa}
                   </p>
                 </Link>
                 <button

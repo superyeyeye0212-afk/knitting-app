@@ -1,0 +1,96 @@
+{
+  "app": {
+    "title": "編み物アシスタント",
+    "shortTitle": "編みアシ"
+  },
+  "nav": {
+    "counter": "カウンター",
+    "symbols": "記号辞典",
+    "faq": "FAQ",
+    "achievements": "実績"
+  },
+  "counter": {
+    "title": "編み物プロジェクト",
+    "newProject": "新しいプロジェクト",
+    "noProjects": "まだプロジェクトがありません",
+    "startButton": "下のボタンから始めましょう",
+    "projectName": "プロジェクト名",
+    "projectNameRequired": "プロジェクト名 *",
+    "projectNamePlaceholder": "例：マフラー",
+    "targetRows": "目標段数",
+    "targetRowsOptional": "目標段数（オプション）",
+    "targetRowsPlaceholder": "空欄で目標なし",
+    "targetRowsInputPlaceholder": "例：50",
+    "currentRow": "段目",
+    "rowsRemaining": "あと{count}段",
+    "targetReached": "目標達成！",
+    "increment": "+1",
+    "decrement": "-1",
+    "reset": "リセット",
+    "memo": "メモ",
+    "memoLabel": "メモ: {memo}",
+    "addMemo": "タップでメモ追加",
+    "memoPlaceholder": "メモを入力",
+    "editName": "名前を編集",
+    "editTarget": "目標段数を編集",
+    "delete": "削除",
+    "confirmResetTitle": "リセット",
+    "confirmResetMessage": "本当にリセットしますか？段数が0に戻ります。",
+    "confirmDeleteTitle": "プロジェクト削除",
+    "confirmDeleteMessage": "「{name}」を削除しますか？この操作は元に戻せません。",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "create": "作成",
+    "back": "戻る",
+    "completionTitle": "完成おめでとう！",
+    "completionMessage": "「{name}」が目標の{targetRow}段に到達しました",
+    "completionButton": "やったー！",
+    "notFound": "プロジェクトが見つかりません",
+    "backToList": "一覧に戻る"
+  },
+  "symbols": {
+    "title": "編み図記号辞典",
+    "search": "記号を検索（日本語・英語）",
+    "categories": {
+      "all": "すべて",
+      "favorites": "お気に入り",
+      "basic": "基本",
+      "increase": "増減",
+      "raised": "引き上げ編み",
+      "special": "特殊",
+      "advanced": "応用"
+    },
+    "detailLink": "Roniqueサイトで詳しい編み方を見る",
+    "relatedSymbols": "関連する記号",
+    "noFavorites": "お気に入りがありません",
+    "notFound": "該当する記号がありません",
+    "notFoundDetail": "記号が見つかりません",
+    "backToDictionary": "辞典に戻る",
+    "description": "説明"
+  },
+  "faq": {
+    "title": "よくある質問",
+    "subtitle": "困った時はここをチェック",
+    "search": "質問を検索",
+    "all": "すべて",
+    "categories": {
+      "stitchCount": "目数の問題",
+      "technique": "編み方の問題",
+      "pattern": "パターンの読み方",
+      "other": "その他"
+    },
+    "notFound": "見つかりませんでした",
+    "notFoundHint": "別のキーワードで検索してみてください"
+  },
+  "achievements": {
+    "title": "実績",
+    "unlocked": "実績解除！",
+    "progress": "進捗",
+    "totalRows": "累計段数",
+    "projectCount": "プロジェクト",
+    "unlockedCount": "実績解除",
+    "close": "やった！",
+    "rowsUnit": "段",
+    "itemsUnit": "個"
+  }
+}

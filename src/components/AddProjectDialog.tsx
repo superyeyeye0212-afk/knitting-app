@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 interface AddProjectDialogProps {
   open: boolean;
@@ -12,6 +13,7 @@ interface AddProjectDialogProps {
 export default function AddProjectDialog({ open, onClose, onAdd }: AddProjectDialogProps) {
   const [name, setName] = useState("");
   const [targetRow, setTargetRow] = useState("");
+  const t = useTranslations("counter");
 
   if (!open) return null;
 
@@ -44,18 +46,18 @@ export default function AddProjectDialog({ open, onClose, onAdd }: AddProjectDia
           <X size={20} />
         </button>
 
-        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-6">新しいプロジェクト</h2>
+        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-6">{t("newProject")}</h2>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-              プロジェクト名 <span className="text-red-400">*</span>
+              {t("projectNameRequired")}
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="例：マフラー"
+              placeholder={t("projectNamePlaceholder")}
               autoFocus
               className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-800 dark:text-gray-100 bg-white dark:bg-slate-700 placeholder-gray-300 dark:placeholder-gray-500 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-colors"
             />
@@ -63,13 +65,13 @@ export default function AddProjectDialog({ open, onClose, onAdd }: AddProjectDia
 
           <div>
             <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
-              目標段数（オプション）
+              {t("targetRowsOptional")}
             </label>
             <input
               type="number"
               value={targetRow}
               onChange={(e) => setTargetRow(e.target.value)}
-              placeholder="例：50"
+              placeholder={t("targetRowsInputPlaceholder")}
               min="1"
               inputMode="numeric"
               className="w-full px-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl text-gray-800 dark:text-gray-100 bg-white dark:bg-slate-700 placeholder-gray-300 dark:placeholder-gray-500 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-colors"
@@ -82,14 +84,14 @@ export default function AddProjectDialog({ open, onClose, onAdd }: AddProjectDia
               onClick={handleClose}
               className="flex-1 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
             >
-              キャンセル
+              {t("cancel")}
             </button>
             <button
               type="submit"
               disabled={!name.trim()}
               className="flex-1 py-3 rounded-xl bg-[#3B82F6] text-white font-medium hover:bg-blue-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              作成
+              {t("create")}
             </button>
           </div>
         </form>

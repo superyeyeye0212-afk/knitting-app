@@ -14,6 +14,7 @@ import { useAchievementStore, type Achievement } from "@/store/achievementStore"
 import ConfirmDialog from "@/components/ConfirmDialog";
 import AchievementUnlockedModal from "@/components/AchievementUnlockedModal";
 import { vibrateShort, vibrateMedium } from "@/utils/vibration";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function CounterPage({
   params,
@@ -22,6 +23,8 @@ export default function CounterPage({
 }) {
   const { id } = use(params);
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("counter");
   const {
     projects,
     incrementRow,
@@ -91,8 +94,8 @@ export default function CounterPage({
   const handleDelete = useCallback(() => {
     deleteProject(id);
     setDeleteDialogOpen(false);
-    router.push("/");
-  }, [id, deleteProject, router]);
+    router.push(`/${locale}`);
+  }, [id, deleteProject, router, locale]);
 
   const handleMemoSave = useCallback(() => {
     updateProject(id, { memo: memoValue.trim() || undefined });
@@ -121,12 +124,12 @@ export default function CounterPage({
   if (!project) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[80vh] px-4">
-        <p className="text-gray-400 dark:text-gray-500 text-lg">プロジェクトが見つかりません</p>
+        <p className="text-gray-400 dark:text-gray-500 text-lg">{t("notFound")}</p>
         <button
-          onClick={() => router.push("/")}
+          onClick={() => router.push(`/${locale}`)}
           className="mt-4 text-[#3B82F6] dark:text-blue-400 font-medium"
         >
-          一覧に戻る
+          {t("backToList")}
         </button>
       </div>
     );
@@ -145,7 +148,7 @@ export default function CounterPage({
       {/* Header */}
       <div className="flex items-center justify-between px-4 pt-4 pb-2">
         <button
-          onClick={() => router.push("/")}
+          onClick={() => router.push(`/${locale}`)}
           className="p-2 -ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
         >
           <ArrowLeft size={24} />
@@ -172,7 +175,7 @@ export default function CounterPage({
                   className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
                 >
                   <Pencil size={16} />
-                  名前を編集
+                  {t("editName")}
                 </button>
                 <button
                   onClick={() => {
@@ -182,7 +185,7 @@ export default function CounterPage({
                   className="w-full text-left px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 flex items-center gap-2"
                 >
                   <Pencil size={16} />
-                  目標段数を編集
+                  {t("editTarget")}
                 </button>
                 <button
                   onClick={() => {
@@ -191,7 +194,7 @@ export default function CounterPage({
                   }}
                   className="w-full text-left px-4 py-3 text-sm text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 border-t border-gray-50 dark:border-gray-700"
                 >
-                  削除
+                  {t("delete")}
                 </button>
               </div>
             </>
@@ -204,7 +207,7 @@ export default function CounterPage({
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/40" onClick={() => setEditingName(false)} />
           <div className="relative bg-white dark:bg-slate-800 rounded-2xl w-[85%] max-w-xs p-6 shadow-xl">
-            <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">名前を編集</h3>
+            <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">{t("editName")}</h3>
             <input
               type="text"
               value={nameValue}
@@ -217,14 +220,14 @@ export default function CounterPage({
                 onClick={() => setEditingName(false)}
                 className="flex-1 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 font-medium"
               >
-                キャンセル
+                {t("cancel")}
               </button>
               <button
                 onClick={handleNameSave}
                 disabled={!nameValue.trim()}
                 className="flex-1 py-3 rounded-xl bg-[#3B82F6] text-white font-medium disabled:opacity-40"
               >
-                保存
+                {t("save")}
               </button>
             </div>
           </div>
@@ -236,12 +239,12 @@ export default function CounterPage({
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div className="absolute inset-0 bg-black/40" onClick={() => setEditingTarget(false)} />
           <div className="relative bg-white dark:bg-slate-800 rounded-2xl w-[85%] max-w-xs p-6 shadow-xl">
-            <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">目標段数を編集</h3>
+            <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100 mb-4">{t("editTarget")}</h3>
             <input
               type="number"
               value={targetValue}
               onChange={(e) => setTargetValue(e.target.value)}
-              placeholder="空欄で目標なし"
+              placeholder={t("targetRowsPlaceholder")}
               min="1"
               inputMode="numeric"
               autoFocus
@@ -252,13 +255,13 @@ export default function CounterPage({
                 onClick={() => setEditingTarget(false)}
                 className="flex-1 py-3 rounded-xl border border-gray-200 dark:border-gray-600 text-gray-500 dark:text-gray-400 font-medium"
               >
-                キャンセル
+                {t("cancel")}
               </button>
               <button
                 onClick={handleTargetSave}
                 className="flex-1 py-3 rounded-xl bg-[#3B82F6] text-white font-medium"
               >
-                保存
+                {t("save")}
               </button>
             </div>
           </div>
@@ -275,13 +278,19 @@ export default function CounterPage({
           >
             {project.currentRow}
           </span>
-          <p className="text-gray-400 dark:text-gray-500 text-lg mt-1">段目</p>
+          <p className="text-gray-400 dark:text-gray-500 text-lg mt-1">
+            {locale === "ja" ? "段目" : t("currentRow")}
+          </p>
         </div>
 
         {project.targetRow && remaining !== null && (
           <div className="w-full max-w-[240px] mt-2 mb-4">
             <p className="text-center text-gray-400 dark:text-gray-500 text-sm mb-2">
-              {remaining > 0 ? `あと${remaining}段` : "目標達成！"}
+              {remaining > 0
+                ? locale === "ja"
+                  ? `あと${remaining}段`
+                  : t("rowsRemaining", { count: remaining })
+                : t("targetReached")}
             </p>
             <div className="w-full h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
               <div
@@ -315,7 +324,7 @@ export default function CounterPage({
             className="flex items-center gap-1 text-gray-400 dark:text-gray-500 text-sm py-2 px-3 hover:text-gray-500 dark:hover:text-gray-300 transition-colors select-none"
           >
             <RotateCcw size={16} />
-            リセット
+            {t("reset")}
           </button>
         </div>
       </div>
@@ -329,7 +338,7 @@ export default function CounterPage({
               value={memoValue}
               onChange={(e) => setMemoValue(e.target.value)}
               autoFocus
-              placeholder="メモを入力"
+              placeholder={t("memoPlaceholder")}
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleMemoSave();
               }}
@@ -339,7 +348,7 @@ export default function CounterPage({
               onClick={handleMemoSave}
               className="px-3 py-2 text-sm text-[#3B82F6] dark:text-blue-400 font-medium"
             >
-              保存
+              {t("save")}
             </button>
           </div>
         ) : (
@@ -351,9 +360,11 @@ export default function CounterPage({
             className="w-full text-left text-sm py-2 px-3 rounded-lg bg-gray-50 dark:bg-slate-800 truncate"
           >
             {project.memo ? (
-              <span className="text-gray-600 dark:text-gray-400">メモ: {project.memo}</span>
+              <span className="text-gray-600 dark:text-gray-400">
+                {t("memoLabel", { memo: project.memo })}
+              </span>
             ) : (
-              <span className="text-gray-300 dark:text-gray-600">タップでメモ追加</span>
+              <span className="text-gray-300 dark:text-gray-600">{t("addMemo")}</span>
             )}
           </button>
         )}
@@ -362,17 +373,19 @@ export default function CounterPage({
       {/* Confirm Dialogs */}
       <ConfirmDialog
         open={resetDialogOpen}
-        title="リセット"
-        message="本当にリセットしますか？段数が0に戻ります。"
-        confirmLabel="リセット"
+        title={t("confirmResetTitle")}
+        message={t("confirmResetMessage")}
+        confirmLabel={t("reset")}
+        cancelLabel={t("cancel")}
         onConfirm={handleReset}
         onCancel={() => setResetDialogOpen(false)}
       />
       <ConfirmDialog
         open={deleteDialogOpen}
-        title="プロジェクト削除"
-        message={`「${project.name}」を削除しますか？この操作は元に戻せません。`}
-        confirmLabel="削除"
+        title={t("confirmDeleteTitle")}
+        message={t("confirmDeleteMessage", { name: project.name })}
+        confirmLabel={t("delete")}
+        cancelLabel={t("cancel")}
         onConfirm={handleDelete}
         onCancel={() => setDeleteDialogOpen(false)}
       />
@@ -382,15 +395,17 @@ export default function CounterPage({
           <div className="absolute inset-0 bg-black/40" onClick={() => setShowCompletionModal(false)} />
           <div className="relative bg-white dark:bg-slate-800 rounded-2xl w-[85%] max-w-xs p-8 shadow-xl text-center">
             <div className="text-5xl mb-4">🎉</div>
-            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">完成おめでとう！</h3>
+            <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+              {t("completionTitle")}
+            </h3>
             <p className="text-gray-500 dark:text-gray-400 text-sm mb-6">
-              「{project.name}」が目標の{project.targetRow}段に到達しました
+              {t("completionMessage", { name: project.name, targetRow: project.targetRow ?? 0 })}
             </p>
             <button
               onClick={() => setShowCompletionModal(false)}
               className="w-full py-3 rounded-xl bg-green-500 text-white font-medium active:scale-95 transition-transform"
             >
-              やったー！
+              {t("completionButton")}
             </button>
           </div>
         </div>

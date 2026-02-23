@@ -19,6 +19,20 @@ export interface AchievementProgress {
   projectCount: number;
 }
 
+// English translations for achievements (not persisted)
+export const achievementTranslationsEn: Record<string, { titleEn: string; descriptionEn: string }> = {
+  "1": { titleEn: "Knitting Debut", descriptionEn: "Created your first project" },
+  "2": { titleEn: "10 Rows Done", descriptionEn: "Knit a total of 10 rows" },
+  "3": { titleEn: "50 Rows Done", descriptionEn: "Knit a total of 50 rows" },
+  "4": { titleEn: "100 Rows Done", descriptionEn: "Knit a total of 100 rows" },
+  "5": { titleEn: "500 Rows Done", descriptionEn: "Knit a total of 500 rows" },
+  "6": { titleEn: "1000 Rows Done", descriptionEn: "Knit a total of 1000 rows! Amazing!" },
+  "7": { titleEn: "3 Projects Complete", descriptionEn: "Completed 3 projects" },
+  "8": { titleEn: "5 Projects Complete", descriptionEn: "Completed 5 projects" },
+  "9": { titleEn: "10 Projects Complete", descriptionEn: "Completed 10 projects!" },
+  "10": { titleEn: "Knitting Master", descriptionEn: "A legendary knitter with 2000 total rows" },
+};
+
 const initialAchievements: Achievement[] = [
   {
     id: "1",

@@ -7,6 +7,7 @@ import { ArrowLeft, Star, ExternalLink } from "lucide-react";
 import { getSymbolById, symbols } from "@/data/symbols";
 import { useFavoriteStore } from "@/store/favoriteStore";
 import SymbolIcon from "@/components/SymbolIcon";
+import { useTranslations, useLocale } from "next-intl";
 
 export default function SymbolDetailPage({
   params,
@@ -15,6 +16,8 @@ export default function SymbolDetailPage({
 }) {
   const { id } = use(params);
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("symbols");
   const { favorites, toggleFavorite } = useFavoriteStore();
   const [mounted, setMounted] = useState(false);
 
@@ -27,12 +30,12 @@ export default function SymbolDetailPage({
   if (!symbol) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[80vh] px-4">
-        <p className="text-gray-400 dark:text-gray-500 text-lg">記号が見つかりません</p>
+        <p className="text-gray-400 dark:text-gray-500 text-lg">{t("notFoundDetail")}</p>
         <button
-          onClick={() => router.push("/symbols")}
+          onClick={() => router.push(`/${locale}/symbols`)}
           className="mt-4 text-[#3B82F6] dark:text-blue-400 font-medium"
         >
-          辞典に戻る
+          {t("backToDictionary")}
         </button>
       </div>
     );
@@ -43,12 +46,15 @@ export default function SymbolDetailPage({
     .map((rid) => symbols.find((s) => s.id === rid))
     .filter(Boolean);
 
+  const primaryName = locale === "ja" ? symbol.nameJa : symbol.nameEn;
+  const secondaryName = locale === "ja" ? symbol.nameEn : symbol.nameJa;
+
   return (
     <div className="px-4 pt-4 pb-24 max-w-md mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <button
-          onClick={() => router.push("/symbols")}
+          onClick={() => router.push(`/${locale}/symbols`)}
           className="p-2 -ml-2 text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition-colors"
         >
           <ArrowLeft size={24} />
@@ -73,8 +79,8 @@ export default function SymbolDetailPage({
         <div className="flex justify-center mb-4 text-gray-800 dark:text-gray-200">
           <SymbolIcon svg={symbol.svg} image={symbol.image} size={120} />
         </div>
-        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">{symbol.nameJa}</h1>
-        <p className="text-gray-400 dark:text-gray-500 mt-1">{symbol.nameEn}</p>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">{primaryName}</h1>
+        <p className="text-gray-400 dark:text-gray-500 mt-1">{secondaryName}</p>
         <span className="inline-block mt-3 px-3 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-xs text-gray-500 dark:text-gray-400">
           {symbol.category}
         </span>
@@ -83,7 +89,7 @@ export default function SymbolDetailPage({
       {/* Description */}
       <div className="mb-6">
         <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
-          説明
+          {t("description")}
         </h2>
         <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{symbol.description}</p>
       </div>
@@ -96,7 +102,7 @@ export default function SymbolDetailPage({
           rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 w-full py-3 bg-[#3B82F6] text-white font-medium rounded-lg hover:bg-blue-600 active:scale-[0.98] transition-all"
         >
-          Roniqueサイトで詳しい編み方を見る
+          {t("detailLink")}
           <ExternalLink size={16} />
         </a>
       </div>
@@ -105,21 +111,21 @@ export default function SymbolDetailPage({
       {relatedSymbols.length > 0 && (
         <div>
           <h2 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">
-            関連する記号
+            {t("relatedSymbols")}
           </h2>
           <div className="flex gap-3 overflow-x-auto pb-2 -mx-4 px-4">
             {relatedSymbols.map((rs) =>
               rs ? (
                 <Link
                   key={rs.id}
-                  href={`/symbols/${rs.id}`}
+                  href={`/${locale}/symbols/${rs.id}`}
                   className="shrink-0 bg-white dark:bg-slate-800 border border-gray-100 dark:border-gray-700 rounded-xl p-3 shadow-sm hover:shadow-md active:scale-95 transition-all text-center w-[100px]"
                 >
                   <div className="flex justify-center mb-1 text-gray-700 dark:text-gray-300">
                     <SymbolIcon svg={rs.svg} image={rs.image} size={36} />
                   </div>
                   <p className="text-xs font-bold text-gray-800 dark:text-gray-100 leading-tight">
-                    {rs.nameJa}
+                    {locale === "ja" ? rs.nameJa : rs.nameEn}
                   </p>
                 </Link>
               ) : null

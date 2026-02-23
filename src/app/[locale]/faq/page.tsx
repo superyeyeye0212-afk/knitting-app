@@ -3,6 +3,8 @@
 import { useState, useMemo, useCallback, Fragment } from "react";
 import { Search, ChevronDown } from "lucide-react";
 import { faqs, faqCategories, type FAQCategory } from "@/data/faqs";
+import { faqsEn } from "@/data/faqs.en";
+import { useTranslations, useLocale } from "next-intl";
 
 type FilterTab = "all" | FAQCategory;
 
@@ -27,7 +29,6 @@ function formatAnswer(answer: string, query: string) {
     const trimmed = line.trim();
     if (!trimmed) return <br key={i} />;
 
-    // 【】headings
     if (/^【.+】/.test(trimmed)) {
       return (
         <p key={i} className="font-bold text-gray-800 dark:text-gray-100 mt-3 first:mt-0">
@@ -36,7 +37,6 @@ function formatAnswer(answer: string, query: string) {
       );
     }
 
-    // ■ subheadings
     if (trimmed.startsWith("■")) {
       return (
         <p key={i} className="font-bold text-gray-700 dark:text-gray-200 mt-2">
@@ -45,7 +45,6 @@ function formatAnswer(answer: string, query: string) {
       );
     }
 
-    // Bullet points
     if (trimmed.startsWith("•") || trimmed.startsWith("-")) {
       return (
         <p key={i} className="ml-4 text-gray-600 dark:text-gray-400">
@@ -54,7 +53,6 @@ function formatAnswer(answer: string, query: string) {
       );
     }
 
-    // Numbered items
     if (/^\d+\./.test(trimmed)) {
       return (
         <p key={i} className="ml-4 text-gray-600 dark:text-gray-400">
@@ -63,7 +61,6 @@ function formatAnswer(answer: string, query: string) {
       );
     }
 
-    // → lines
     if (trimmed.startsWith("→")) {
       return (
         <p key={i} className="ml-4 text-gray-500 dark:text-gray-400 italic">
@@ -72,7 +69,6 @@ function formatAnswer(answer: string, query: string) {
       );
     }
 
-    // 「」quoted text
     if (trimmed.startsWith("「")) {
       return (
         <p key={i} className="ml-2 text-gray-600 dark:text-gray-400">
@@ -93,9 +89,13 @@ export default function FaqPage() {
   const [activeTab, setActiveTab] = useState<FilterTab>("all");
   const [query, setQuery] = useState("");
   const [openId, setOpenId] = useState<string | null>(null);
+  const t = useTranslations("faq");
+  const locale = useLocale();
+
+  const faqData = locale === "en" ? faqsEn : faqs;
 
   const filtered = useMemo(() => {
-    let result = faqs;
+    let result = faqData;
 
     if (activeTab !== "all") {
       result = result.filter((f) => f.category === activeTab);
@@ -111,7 +111,7 @@ export default function FaqPage() {
     }
 
     return result;
-  }, [activeTab, query]);
+  }, [activeTab, query, faqData]);
 
   const toggleOpen = useCallback((id: string) => {
     setOpenId((prev) => (prev === id ? null : id));
@@ -119,8 +119,8 @@ export default function FaqPage() {
 
   return (
     <div className="px-4 pt-10 pb-24 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">よくある質問</h1>
-      <p className="text-gray-400 dark:text-gray-500 mt-1 mb-4">困った時はここをチェック</p>
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">{t("title")}</h1>
+      <p className="text-gray-400 dark:text-gray-500 mt-1 mb-4">{t("subtitle")}</p>
 
       {/* Search */}
       <div className="relative mb-4">
@@ -132,7 +132,7 @@ export default function FaqPage() {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="質問を検索"
+          placeholder={t("search")}
           className="w-full pl-10 pr-4 py-3 border border-gray-200 dark:border-gray-600 rounded-xl text-sm text-gray-800 dark:text-gray-100 bg-white dark:bg-slate-800 placeholder-gray-300 dark:placeholder-gray-500 focus:outline-none focus:border-[#3B82F6] focus:ring-1 focus:ring-[#3B82F6] transition-colors"
         />
       </div>
@@ -147,7 +147,7 @@ export default function FaqPage() {
               : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
           }`}
         >
-          すべて
+          {t("all")}
         </button>
         {faqCategories.map((cat) => (
           <button
@@ -159,7 +159,7 @@ export default function FaqPage() {
                 : "bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700"
             }`}
           >
-            {cat}
+            {t(`categories.${cat}`)}
           </button>
         ))}
       </div>
@@ -167,9 +167,9 @@ export default function FaqPage() {
       {/* FAQ List */}
       {filtered.length === 0 ? (
         <div className="text-center mt-16">
-          <p className="text-gray-400 dark:text-gray-500">見つかりませんでした</p>
+          <p className="text-gray-400 dark:text-gray-500">{t("notFound")}</p>
           <p className="text-gray-300 dark:text-gray-600 text-sm mt-1">
-            別のキーワードで検索してみてください
+            {t("notFoundHint")}
           </p>
         </div>
       ) : (
